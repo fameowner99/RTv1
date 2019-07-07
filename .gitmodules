@@ -1,0 +1,6 @@
+[submodule "libft"]
+	path = libft
+	url = https://github.com/fameowner99/libft.git
+[submodule "SDL_LIBRARY"]
+	path = SDL_LIBRARY
+	url = https://github.com/fameowner99/SDL_LIBRARY.git
