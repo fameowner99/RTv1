@@ -18,40 +18,63 @@
 # define W_HEIGHT	800
 # define TRUE		1
 # define FALSE		0
+# define FPS 60
 
+#include <stdlib.h>
+#include "SDL.h"
+#include "libft.h"
 
 typedef enum			e_object_type
 {
-	PLANE = 0
+	PLANE = 0,
 	SPHERE,
 	CYLINDER,
 	CONE
 }						t_object_type;
 
-typedef struct			s_point
+typedef struct			s_vector
 {
 	float				x;
 	float				y;
 	float				z;
-}						t_point;
+}						t_vector;
 
 typedef struct			s_sphere
 {
+	t_vector			center;
 	int					radius;
 }						t_sphere;
 
-typedef struct			s_object
-{
-	t_point				center;
-	void				*object_data;
-	t_object_type		type;
-}						t_object;
-
-
 typedef struct			s_object_lst
 {
-	t_object			*object;
+	void				*data;
+	t_object_type		type;
 	struct s_object_lst	*next;
 }						t_object_lst;
+
+typedef struct			s_sdl_data
+{
+	SDL_Window   *window;
+    SDL_Renderer *renderer;
+    SDL_Event    event;
+}						t_sdl_data;
+
+typedef struct			s_camera
+{
+	t_position			position;
+}						t_camera;
+
+typedef struct			s_union
+{
+	t_object_lst		*lst;
+	t_sdl_data			sdl;
+	t_camera			camera;
+}						t_union;
+
+
+void				add_objects_to_scene(t_union *un);
+t_object_lst        *create_sphere_node(t_vector center, int radius, t_object_type type);
+t_object_lst        *push_back(t_object_lst *head, t_object_lst *node);
+void				rt(t_union *rt);
 
 #endif
