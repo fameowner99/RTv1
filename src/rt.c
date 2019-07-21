@@ -8,6 +8,9 @@ void rt(t_union *un)
     SDL_SetRenderDrawColor(un->sdl.renderer, 0, 0, 0, 0);
     Uint32       start;
 
+    draw(un);
+    SDL_SetRenderDrawColor(un->sdl.renderer, 0, 0, 0, 0);
+    SDL_RenderPresent(un->sdl.renderer);
      while (TRUE)
      {
         //SDL_RenderClear(un->sdl.renderer);

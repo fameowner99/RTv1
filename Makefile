@@ -6,13 +6,19 @@ FLAGS = #-Wall -Wextra -Werror
 
 RM = rm -f
 
-SDL_DIR = ./SDL_LIBRARY/SDL2.framework/Headers
+SDL_INC = ./SDL_LIBRARY/SDL2.framework/Headers
 
-HEADERPATH = -I ./inc -I $(LIB_DIR) -I $(SDL_DIR)
-
-SRC = src/main.c src/object_lst.c src/rt.c src/object_managment.c src/vector_operations.c
+LIBVEC_INC = ./libvec/inc/
 
 LIB_DIR = ./libft/
+
+LIBVEC_DIR = ./libvec/
+
+HEADERPATH = -I ./inc -I $(LIB_DIR) -I $(SDL_INC) -I $(LIBVEC_INC)
+
+SRC = src/main.c src/object_lst.c src/rt.c src/object_managment.c src/renderer.c src/ray_handler.c
+
+LIBVEC_FLAGS = -L $(LIBVEC_DIR) -lvec
 
 LIB_FLAGS = -L $(LIB_DIR) -lft
 
@@ -24,7 +30,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIB_DIR) all
-	$(CC) $(FLAGS) $(OBJ) -o $@ $(SDL_FLAGS) $(LIB_FLAGS)
+	@make -C $(LIBVEC_DIR) all
+	$(CC) $(FLAGS) $(OBJ) -o $@ $(SDL_FLAGS) $(LIB_FLAGS) $(LIBVEC_FLAGS)
 	
 	@echo "rtv1 done."
 
@@ -33,10 +40,12 @@ $(NAME): $(OBJ)
 
 clean:
 	@make clean -C $(LIB_DIR)
+	@make clean -C $(LIBVEC_DIR)
 	$(RM) $(OBJ)
 
 fclean: clean
 	@make fclean -C $(LIB_DIR)
+	@make fclean -C $(LIBVEC_DIR)
 	$(RM) $(NAME)
 
 re: fclean all

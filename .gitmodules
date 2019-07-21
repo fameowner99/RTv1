@@ -4,3 +4,6 @@
 [submodule "SDL_LIBRARY"]
 	path = SDL_LIBRARY
 	url = https://github.com/fameowner99/SDL_LIBRARY.git
+[submodule "libvec"]
+	path = libvec
+	url = https://github.com/fameowner99/libvec.git

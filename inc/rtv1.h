@@ -14,8 +14,8 @@
 
 # define RTV1_H
 
-# define W_WIDTH 	800
-# define W_HEIGHT	800
+# define W_WIDTH 	1000
+# define W_HEIGHT	1000
 # define TRUE		1
 # define FALSE		0
 # define FPS 60
@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include "SDL.h"
 #include "libft.h"
+#include "libvec.h"
 
 typedef enum			e_object_type
 {
@@ -32,16 +33,9 @@ typedef enum			e_object_type
 	CONE
 }						t_object_type;
 
-typedef struct			s_vector
-{
-	float				x;
-	float				y;
-	float				z;
-}						t_vector;
-
 typedef struct			s_sphere
 {
-	t_vector			center;
+	t_vec				center;
 	int					radius;
 }						t_sphere;
 
@@ -61,7 +55,7 @@ typedef struct			s_sdl_data
 
 typedef struct			s_camera
 {
-	t_position			position;
+	t_vec				position;
 }						t_camera;
 
 typedef struct			s_union
@@ -73,8 +67,10 @@ typedef struct			s_union
 
 
 void				add_objects_to_scene(t_union *un);
-t_object_lst        *create_sphere_node(t_vector center, int radius, t_object_type type);
+t_object_lst        *create_sphere_node(t_vec center, int radius, t_object_type type);
 t_object_lst        *push_back(t_object_lst *head, t_object_lst *node);
 void				rt(t_union *rt);
+void				ray_intersection(t_union *un);
+void				draw(t_union *un);
 
 #endif

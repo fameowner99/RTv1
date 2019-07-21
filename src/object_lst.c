@@ -26,7 +26,7 @@ t_object_lst        *create_node(void *data, t_object_type type)
 }
 
 
-t_object_lst        *create_sphere_node(t_vector center, int radius, t_object_type type)
+t_object_lst        *create_sphere_node(t_vec center, int radius, t_object_type type)
 {
     t_sphere        *data;
 
