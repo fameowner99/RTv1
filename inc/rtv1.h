@@ -39,10 +39,18 @@ typedef struct			s_sphere
 	int					radius;
 }						t_sphere;
 
+typedef struct			s_color
+{
+	uint8_t				r;
+	uint8_t				g;
+	uint8_t				b;
+}						t_color;
+
 typedef struct			s_object_lst
 {
 	void				*data;
 	t_object_type		type;
+	t_color				color;
 	struct s_object_lst	*next;
 }						t_object_lst;
 
@@ -67,7 +75,7 @@ typedef struct			s_union
 
 
 void				add_objects_to_scene(t_union *un);
-t_object_lst        *create_sphere_node(t_vec center, int radius, t_object_type type);
+t_object_lst        *create_sphere_node(t_vec center, int radius, t_object_type type, t_color color);
 t_object_lst        *push_back(t_object_lst *head, t_object_lst *node);
 void				rt(t_union *rt);
 void				ray_intersection(t_union *un);
