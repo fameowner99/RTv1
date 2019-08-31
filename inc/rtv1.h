@@ -16,6 +16,9 @@
 
 # define W_WIDTH 	1000
 # define W_HEIGHT	1000
+# define VIEWPORT_X 1
+# define VIEWPORT_Y 1
+
 # define TRUE		1
 # define FALSE		0
 # define FPS 60

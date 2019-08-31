@@ -13,7 +13,7 @@
 #include "rtv1.h"
 
 
-void sphere_ray_intersection(t_union *un, t_object_lst *object, t_vec v, int x, int y)
+void sphere_ray_intersection(t_union *un, t_object_lst *object, t_vec viewport, t_vec canvas)
 {
     float d;
     float k1;
@@ -21,50 +21,43 @@ void sphere_ray_intersection(t_union *un, t_object_lst *object, t_vec v, int x, 
     float k3;
     t_sphere *data = (t_sphere *)object->data;
 
-    k1 = vec_dot_product(v, v);
-    k2 = 2 * vec_dot_product(data->center,v);
-    k3 = vec_dot_product(data->center, data->center) - data->radius * data->radius;
+    k1 = vec_dot_product(viewport, viewport);
+    k2 = 2 * vec_dot_product(vec_sub(data->center, un->camera.position), viewport);
+    k3 = vec_dot_product(vec_sub(data->center, un->camera.position), vec_sub(data->center, un->camera.position)) - data->radius * data->radius;
 
     d = k2 * k2 - 4 * k1 * k3;
 
     if (d >= 0)
     {
         SDL_SetRenderDrawColor(un->sdl.renderer, object->color.r, object->color.g, object->color.b, 0);
-    }
-    else
-    {
-        SDL_SetRenderDrawColor(un->sdl.renderer, 0, 0, 0, 0);
-       
-    }
-    SDL_RenderDrawPoint(un->sdl.renderer, x + W_WIDTH / 2, y + W_HEIGHT / 2);
+        SDL_RenderDrawPoint(un->sdl.renderer, W_WIDTH / 2 + canvas.x, W_HEIGHT / 2 - canvas.y);
+    }   
 }
 
 void ray_intersection(t_union *un)
 {
     t_object_lst *head = NULL;
-    t_vec v;
-    int x;
-    int y;
+    t_vec canvas;
+    t_vec viewport;
 
-    y = -W_HEIGHT / 2;
-    while (y < W_HEIGHT / 2)
+    viewport.z = 1;
+    canvas.y = -W_HEIGHT / 2;
+    while (canvas.y < W_HEIGHT / 2)
     {
-        x = -W_WIDTH / 2;
-        while (x < W_WIDTH / 2)
+        canvas.x = -W_WIDTH / 2;
+        while (canvas.x < W_WIDTH / 2)
         {
             head = un->lst;
             while (head)
             {
-                v.x = x;
-                v.y = y;
-                v.z = 500;
+                viewport.x = canvas.x * VIEWPORT_X / (float)W_WIDTH;
+                viewport.y = canvas.y * VIEWPORT_Y / (float)W_HEIGHT;
                 if (head->type == SPHERE)
-                    sphere_ray_intersection(un, head, v, x ,y);
-
+                    sphere_ray_intersection(un, head, viewport, canvas);
                 head = head->next;
             }
-            ++x;
+            ++canvas.x;
         }
-        ++y;
+        ++canvas.y;
     }
 }
