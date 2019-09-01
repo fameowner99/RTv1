@@ -12,11 +12,12 @@
 
 #include "rtv1.h"
 
-void	set_initial_camera_position(t_union *un)
+void	set_initial_camera_data(t_union *un)
 {
 	un->camera.position.x = 0;
 	un->camera.position.y = 0;
 	un->camera.position.z = 0;
+	un->camera.projection_plane_distance = un->camera.position.z + 1;
 }
 
 int		main()
@@ -24,7 +25,7 @@ int		main()
 	t_union un;
 
 	un.lst = NULL;
-	set_initial_camera_position(&un);
+	set_initial_camera_data(&un);
 	add_objects_to_scene(&un);
 	rt(&un);
 	return (0);

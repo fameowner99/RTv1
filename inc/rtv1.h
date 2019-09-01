@@ -22,6 +22,9 @@
 # define TRUE		1
 # define FALSE		0
 # define FPS 60
+# define BACKGROUND_COLOR_R 0
+# define BACKGROUND_COLOR_G 0
+# define BACKGROUND_COLOR_B 0
 
 #include <stdlib.h>
 #include "SDL.h"
@@ -67,6 +70,7 @@ typedef struct			s_sdl_data
 typedef struct			s_camera
 {
 	t_vec				position;
+	float				projection_plane_distance;
 }						t_camera;
 
 typedef struct			s_union
@@ -76,6 +80,11 @@ typedef struct			s_union
 	t_camera			camera;
 }						t_union;
 
+typedef struct			s_equation_solve
+{
+	float				t1;
+	float				t2;
+}						t_equation_solve;
 
 void				add_objects_to_scene(t_union *un);
 t_object_lst        *create_sphere_node(t_vec center, int radius, t_object_type type, t_color color);
@@ -83,5 +92,7 @@ t_object_lst        *push_back(t_object_lst *head, t_object_lst *node);
 void				rt(t_union *rt);
 void				ray_intersection(t_union *un);
 void				draw(t_union *un);
+void				draw_on_canvas(t_union *un, t_object_lst *object, t_vec canvas);
+t_equation_solve	solve_equation(t_union *un, float k1, float k2, float k3);
 
 #endif
