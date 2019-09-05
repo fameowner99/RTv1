@@ -48,9 +48,7 @@ t_object_lst        *push_back(t_object_lst *head, t_object_lst *node)
         return (node);
     
     while (head->next)
-    {
         head = head->next;
-    }
     head->next = node;
     return (head);
 }
