@@ -18,8 +18,8 @@ t_equation_solve solve_equation(t_union *un, float k1, float k2, float k3)
     float d;
     t_equation_solve solve;
 
-    solve.t1 = un->camera.position.z - 1;
-    solve.t2 = un->camera.position.z - 1;
+    solve.t1 = un->camera.basis.position.z - 1;
+    solve.t2 = un->camera.basis.position.z - 1;
     d = k2 * k2 - 4 * k1 * k3;
     if (d < 0)
         return (solve);
@@ -45,8 +45,8 @@ t_equation_solve sphere_ray_intersection(t_union *un, t_object_lst *object, t_ve
     t_sphere *data = (t_sphere *)object->data;
 
     k1 = vec_dot_product(viewport, viewport);
-    k2 = 2 * vec_dot_product(vec_sub(un->camera.position, data->center), viewport);
-    k3 = vec_dot_product(vec_sub(un->camera.position, data->center), vec_sub(un->camera.position, data->center)) - data->radius * data->radius;
+    k2 = 2 * vec_dot_product(vec_sub(un->camera.basis.position, data->center), viewport);
+    k3 = vec_dot_product(vec_sub(un->camera.basis.position, data->center), vec_sub(un->camera.basis.position, data->center)) - data->radius * data->radius;
 
     return (solve_equation(un, k1, k2, k3));
 }
@@ -72,8 +72,8 @@ t_object_lst *get_closest_object(t_union *un, t_vec viewport, t_vec canvas)
     float closest_root;
     t_equation_solve solve;
 
-    solve.t1 = un->camera.position.z - 1;
-    solve.t2 = un->camera.position.z - 1;
+    solve.t1 = un->camera.basis.position.z - 1;
+    solve.t2 = un->camera.basis.position.z - 1;
     object = un->lst;
     closest_object = NULL;
     while (object)

@@ -31,6 +31,9 @@
 #include "libft.h"
 #include "libvec.h"
 
+
+# define INITIALIZE_VECTOR(vec, x, y, z) (vec.x = (x), vec.y = (y), vec.z = (z))
+
 typedef enum			e_object_type
 {
 	PLANE = 0,
@@ -67,9 +70,16 @@ typedef struct			s_sdl_data
     SDL_Event    event;
 }						t_sdl_data;
 
-typedef struct			s_camera
+typedef struct			s_camera_basis
 {
 	t_vec				position;
+	t_vec				look_at;
+	t_vec				up;
+}						t_camera_basis;
+
+typedef struct			s_camera
+{
+	t_camera_basis		basis;
 	float				projection_plane_distance;
 }						t_camera;
 

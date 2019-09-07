@@ -14,10 +14,10 @@
 
 void	set_initial_camera_data(t_union *un)
 {
-	un->camera.position.x = 0;
-	un->camera.position.y = 0;
-	un->camera.position.z = 0;
-	un->camera.projection_plane_distance = un->camera.position.z + 1;
+	vec_set(un->camera.basis.position, 0, 0, 0);
+	vec_set(un->camera.basis.up, 0, 1, 0);
+	vec_set(un->camera.basis.look_at, 0, 0 ,1);
+	un->camera.projection_plane_distance = un->camera.basis.position.z + 1;
 }
 
 int		main()
