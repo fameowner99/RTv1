@@ -25,14 +25,22 @@
 # define BACKGROUND_COLOR_R 0
 # define BACKGROUND_COLOR_G 0
 # define BACKGROUND_COLOR_B 0
+# define CAMERA_MOVEMENT_STEP 1
 
 #include <stdlib.h>
 #include "SDL.h"
 #include "libft.h"
 #include "libvec.h"
 
-
-# define INITIALIZE_VECTOR(vec, x, y, z) (vec.x = (x), vec.y = (y), vec.z = (z))
+typedef enum			e_camera_move
+{
+	LEFT = 0,
+	RIGHT,
+	UP,
+	DOWN,
+	FORWARD,
+	BACK
+}						t_camera_move;
 
 typedef enum			e_object_type
 {
@@ -104,5 +112,7 @@ void				ray_intersection(t_union *un);
 void				draw(t_union *un);
 void				draw_on_canvas(t_union *un, t_object_lst *object, t_vec canvas);
 t_equation_solve	solve_equation(t_union *un, float k1, float k2, float k3);
+int					handle_events(t_union *un);
+void				move_camera(t_union *un, t_camera_move direction);
 
 #endif

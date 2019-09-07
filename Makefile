@@ -16,7 +16,8 @@ LIBVEC_DIR = ./libvec/
 
 HEADERPATH = -I ./inc -I $(LIB_DIR) -I $(SDL_INC) -I $(LIBVEC_INC)
 
-SRC = src/main.c src/object_lst.c src/rt.c src/object_managment.c src/renderer.c src/ray_handler.c
+SRC = src/main.c src/object_lst.c src/rt.c src/object_managment.c src/renderer.c src/ray_handler.c \
+	src/event_handler.c src/camera_manipulator.c
 
 LIBVEC_FLAGS = -L $(LIBVEC_DIR) -lvec
 

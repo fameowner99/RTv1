@@ -1,33 +1,36 @@
 
 #include "rtv1.h"
 
+int init_sld(t_union *un)
+{
+     if (SDL_Init(SDL_INIT_VIDEO) != 0)
+        return (FALSE);
+
+    SDL_CreateWindowAndRenderer(W_WIDTH, W_HEIGHT, 0, &un->sdl.window, &un->sdl.renderer);
+
+    return (TRUE);
+}
+
 void rt(t_union *un)
 {
-    SDL_CreateWindowAndRenderer(W_WIDTH, W_HEIGHT, 0, &un->sdl.window, &un->sdl.renderer);
-    SDL_RenderClear(un->sdl.renderer);
-    SDL_SetRenderDrawColor(un->sdl.renderer, 0, 0, 0, 0);
     Uint32       start;
+    int          is_running;
+
+    if (!init_sld(un))
+        ft_printf("Error happend during SDL initialization.\n");
 
     draw(un);
-    SDL_SetRenderDrawColor(un->sdl.renderer, 0, 0, 0, 0);
-    SDL_RenderPresent(un->sdl.renderer);
-     while (TRUE)
-     {
-        //SDL_RenderClear(un->sdl.renderer);
-        if (SDL_PollEvent(&un->sdl.event) && (un->sdl.event.type == SDL_QUIT || un->sdl.event.key.keysym.sym == SDLK_ESCAPE))
-            break;
+    is_running = TRUE;
+    while (is_running)
+    {
+        is_running = handle_events(un);
         start = SDL_GetTicks();
-
-        //SDL_SetRenderDrawColor(un->sdl.renderer, 0, 0, 0, 0);
-       // SDL_RenderPresent(un->sdl.renderer);
-        //SDL_UpdateWindowSurface(un->sdl.window);
-
-        /*if (1000 / FPS > SDL_GetTicks() - start)
+        if (1000 / FPS > SDL_GetTicks() - start)
         {
             SDL_Delay(1000 / FPS - (SDL_GetTicks() - start));
-        }*/
+        }
 
-     }
+    }
 
     SDL_DestroyRenderer(un->sdl.renderer);
     SDL_DestroyWindow(un->sdl.window);

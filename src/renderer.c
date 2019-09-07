@@ -23,5 +23,10 @@ void draw_on_canvas(t_union *un, t_object_lst *object, t_vec canvas)
 
 void draw(t_union *un)
 {
+    SDL_RenderClear(un->sdl.renderer);
+
     ray_intersection(un);
+
+    SDL_SetRenderDrawColor(un->sdl.renderer, 0, 0, 0, 0);
+    SDL_RenderPresent(un->sdl.renderer);
 }
