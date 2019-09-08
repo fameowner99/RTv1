@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-void draw_on_canvas(t_union *un, t_object_lst *object, t_vec canvas)
+void draw_on_canvas(t_union *un, t_object *object, t_vec canvas)
 {
     if (!object)
         SDL_SetRenderDrawColor(un->sdl.renderer, BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B, 0);

@@ -13,7 +13,7 @@ void				add_objects_to_scene(t_union *un)
     center.z = 5;
 
     
-    un->lst = push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
+    un->lst = object_push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
 
     color.r = 100;
     color.g = 100;
@@ -21,7 +21,7 @@ void				add_objects_to_scene(t_union *un)
     center.x = 0.5;
     center.y = 0;
     center.z = 5;
-    un->lst = push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
+    un->lst = object_push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
 
 
     color.r = 0;
@@ -30,6 +30,18 @@ void				add_objects_to_scene(t_union *un)
     center.x = 0.5;
     center.y = 0;
     center.z = 10;
-    un->lst = push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
+    un->lst = object_push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
+
+
+
+    color.r = 255;
+    color.g = 4;
+    color.b = 4;
+    center.x = 0;
+    center.y = 0;
+    center.z = -7;
+
+    
+    un->lst = object_push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
 
 }

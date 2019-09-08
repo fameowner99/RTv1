@@ -50,10 +50,24 @@ typedef enum			e_object_type
 	CONE
 }						t_object_type;
 
+typedef enum			e_light_type
+{
+	AMBIENT = 0,
+	POINT
+}						t_light_type;
+
+typedef struct 			s_light
+{
+	t_light_type		type;
+	t_vec				position;
+	float				intensity;
+	struct s_light		*next;
+}						t_light;
+
 typedef struct			s_sphere
 {
 	t_vec				center;
-	int					radius;
+	float				radius;
 }						t_sphere;
 
 typedef struct			s_color
@@ -63,19 +77,19 @@ typedef struct			s_color
 	uint8_t				b;
 }						t_color;
 
-typedef struct			s_object_lst
+typedef struct			s_object
 {
 	void				*data;
 	t_object_type		type;
 	t_color				color;
-	struct s_object_lst	*next;
-}						t_object_lst;
+	struct s_object		*next;
+}						t_object;
 
 typedef struct			s_sdl_data
 {
-	SDL_Window   *window;
-    SDL_Renderer *renderer;
-    SDL_Event    event;
+	SDL_Window   		*window;
+    SDL_Renderer 		*renderer;
+    SDL_Event    		event;
 }						t_sdl_data;
 
 typedef struct			s_camera_basis
@@ -93,7 +107,7 @@ typedef struct			s_camera
 
 typedef struct			s_union
 {
-	t_object_lst		*lst;
+	t_object			*lst;
 	t_sdl_data			sdl;
 	t_camera			camera;
 }						t_union;
@@ -105,12 +119,13 @@ typedef struct			s_equation_solve
 }						t_equation_solve;
 
 void				add_objects_to_scene(t_union *un);
-t_object_lst        *create_sphere_node(t_vec center, int radius, t_object_type type, t_color color);
-t_object_lst        *push_back(t_object_lst *head, t_object_lst *node);
+t_object      	 	*create_sphere_node(t_vec center, float radius, t_object_type type, t_color color);
+t_object	        *object_push_back(t_object *head, t_object *node);
+t_light				*light_push_back(t_light *head, t_light_type type, t_vec position, float intensity);
 void				rt(t_union *rt);
 void				ray_intersection(t_union *un);
 void				draw(t_union *un);
-void				draw_on_canvas(t_union *un, t_object_lst *object, t_vec canvas);
+void				draw_on_canvas(t_union *un, t_object *object, t_vec canvas);
 t_equation_solve	solve_equation(t_union *un, float k1, float k2, float k3);
 int					handle_events(t_union *un);
 void				move_camera(t_union *un, t_camera_move direction);

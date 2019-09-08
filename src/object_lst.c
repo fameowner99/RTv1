@@ -14,11 +14,11 @@
 #include "rtv1.h"
 
 
-t_object_lst        *create_node(void *data, t_object_type type, t_color color)
+static t_object       *create_node(void *data, t_object_type type, t_color color)
 {
-    t_object_lst    *node;
+    t_object   *node;
 
-    node = malloc(sizeof(t_object_lst));
+    node = malloc(sizeof(t_object));
     node->type = type;
     node->color.r = color.r;
     node->color.g = color.g;
@@ -29,22 +29,20 @@ t_object_lst        *create_node(void *data, t_object_type type, t_color color)
 }
 
 
-t_object_lst        *create_sphere_node(t_vec center, int radius, t_object_type type, t_color color)
+t_object        *create_sphere_node(t_vec center, float radius, t_object_type type, t_color color)
 {
     t_sphere        *data;
 
     data = malloc(sizeof(t_sphere));
     data->radius = radius;
-    data->center.x = center.x;
-    data->center.y = center.y;
-    data->center.z = center.z;
+    vec_set(&data->center, center.x, center.y, center.z);
     return (create_node(data, type, color));
 }
 
 
-t_object_lst        *push_back(t_object_lst *head, t_object_lst *node)
+t_object      *object_push_back(t_object *head, t_object *node)
 {
-    t_object_lst    *current_node;
+    t_object    *current_node;
 
     if (!head)
         return (node);

@@ -17,10 +17,9 @@ void move_camera(t_union *un, t_camera_move direction)
     t_vec *camera_position;
     t_vec look_at;
 
-
     camera_position = &un->camera.basis.position;
     look_at = un->camera.basis.look_at;
-    //printf("x %f y %f z %f\n", camera_position->x, camera_position->y, camera_position->z);
+
     if (direction == FORWARD)
     {
         vec_set(camera_position, camera_position->x + look_at.x * CAMERA_MOVEMENT_STEP,
@@ -53,7 +52,5 @@ void move_camera(t_union *un, t_camera_move direction)
            camera_position->y, camera_position->z); //temporary solution
     }
 
-  // printf("x %f y %f z %f\n", camera_position->x, camera_position->y, camera_position->z);
-   // printf("PROJECTION PLANE:  %f\n", un->camera.projection_plane_distance);
     draw(un);
 }

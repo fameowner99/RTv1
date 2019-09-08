@@ -37,7 +37,7 @@ t_vec canvas_to_viewport(t_vec canvas)
     return (viewport);
 }
 
-t_equation_solve sphere_ray_intersection(t_union *un, t_object_lst *object, t_vec viewport, t_vec canvas)
+t_equation_solve sphere_ray_intersection(t_union *un, t_object *object, t_vec viewport, t_vec canvas)
 {
     float k1;
     float k2;
@@ -51,7 +51,7 @@ t_equation_solve sphere_ray_intersection(t_union *un, t_object_lst *object, t_ve
     return (solve_equation(un, k1, k2, k3));
 }
 
-int is_root_valid(t_union *un, float root, float closest_root, t_object_lst *closest_object)
+int is_root_valid(t_union *un, float root, float closest_root, t_object *closest_object)
 {
     if (root < un->camera.projection_plane_distance)
         return (FALSE);
@@ -65,10 +65,10 @@ int is_root_valid(t_union *un, float root, float closest_root, t_object_lst *clo
     return (FALSE);
 }
 
-t_object_lst *get_closest_object(t_union *un, t_vec viewport, t_vec canvas)
+t_object *get_closest_object(t_union *un, t_vec viewport, t_vec canvas)
 {
-    t_object_lst *object;
-    t_object_lst *closest_object;
+    t_object *object;
+    t_object *closest_object;
     float closest_root;
     t_equation_solve solve;
 
@@ -97,7 +97,7 @@ t_object_lst *get_closest_object(t_union *un, t_vec viewport, t_vec canvas)
 
 void ray_intersection(t_union *un)
 {
-    t_object_lst *closest_object;
+    t_object *closest_object;
     t_vec canvas;
     t_vec viewport;
 
