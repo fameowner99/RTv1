@@ -100,7 +100,7 @@ void ray_intersection(t_union *un)
     t_object *closest_object;
     t_vec canvas;
     t_vec viewport;
-
+  
     canvas.y = -W_HEIGHT / 2;
     while (canvas.y < W_HEIGHT / 2)
     {

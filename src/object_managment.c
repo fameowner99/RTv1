@@ -8,11 +8,11 @@ void				add_objects_to_scene(t_union *un)
     color.r = 255;
     color.g = 4;
     color.b = 4;
+
     center.x = -0.5;
     center.y = 0;
     center.z = 5;
 
-    
     un->lst = object_push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
 
     color.r = 100;

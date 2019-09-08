@@ -28,7 +28,7 @@
 # define CAMERA_MOVEMENT_STEP 1
 
 #include <stdlib.h>
-#include "SDL.h"
+#include <SDL2/SDL.h>
 #include "libft.h"
 #include "libvec.h"
 
