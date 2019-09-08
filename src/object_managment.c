@@ -22,4 +22,14 @@ void				add_objects_to_scene(t_union *un)
     center.y = 0;
     center.z = 5;
     un->lst = push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
+
+
+    color.r = 0;
+    color.g = 255;
+    color.b = 0;
+    center.x = 0.5;
+    center.y = 0;
+    center.z = 10;
+    un->lst = push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
+
 }

@@ -20,12 +20,16 @@ void move_camera(t_union *un, t_camera_move direction)
 
     camera_position = &un->camera.basis.position;
     look_at = un->camera.basis.look_at;
-    printf("x %f y %f z %f\n", camera_position->x, camera_position->y, camera_position->z);
+    //printf("x %f y %f z %f\n", camera_position->x, camera_position->y, camera_position->z);
     if (direction == FORWARD)
     {
         vec_set(camera_position, camera_position->x + look_at.x * CAMERA_MOVEMENT_STEP,
            camera_position->y + look_at.y * CAMERA_MOVEMENT_STEP,
            camera_position->z + look_at.z * CAMERA_MOVEMENT_STEP);
+         if (un->camera.basis.position.z >= 0)
+            un->camera.projection_plane_distance = un->camera.basis.position.z + 1;
+        else
+            un->camera.projection_plane_distance = 1;
     }
     else if (direction == BACK)
     {
@@ -33,18 +37,23 @@ void move_camera(t_union *un, t_camera_move direction)
         vec_set(camera_position, camera_position->x + look_at.x * CAMERA_MOVEMENT_STEP,
            camera_position->y + look_at.y * CAMERA_MOVEMENT_STEP,
            camera_position->z + look_at.z * CAMERA_MOVEMENT_STEP);
+        if (un->camera.basis.position.z >= 0)
+            un->camera.projection_plane_distance = un->camera.basis.position.z + 1;
+        else
+            un->camera.projection_plane_distance = 1;
     }
     else if (direction == LEFT)
     {
-         vec_set(camera_position, camera_position->x + CAMERA_MOVEMENT_STEP,
+         vec_set(camera_position, camera_position->x - CAMERA_MOVEMENT_STEP,
            camera_position->y, camera_position->z); //temporary solution
     }
     else if (direction == RIGHT)
     {
-        vec_set(camera_position, camera_position->x - CAMERA_MOVEMENT_STEP,
+        vec_set(camera_position, camera_position->x + CAMERA_MOVEMENT_STEP,
            camera_position->y, camera_position->z); //temporary solution
     }
 
-   printf("x %f y %f z %f\n", camera_position->x, camera_position->y, camera_position->z);
+  // printf("x %f y %f z %f\n", camera_position->x, camera_position->y, camera_position->z);
+   // printf("PROJECTION PLANE:  %f\n", un->camera.projection_plane_distance);
     draw(un);
 }

@@ -44,11 +44,14 @@ t_object_lst        *create_sphere_node(t_vec center, int radius, t_object_type 
 
 t_object_lst        *push_back(t_object_lst *head, t_object_lst *node)
 {
+    t_object_lst    *current_node;
+
     if (!head)
         return (node);
-    
-    while (head->next)
-        head = head->next;
-    head->next = node;
+    current_node = head;
+
+    while (current_node->next)
+        current_node = current_node->next;
+    current_node->next = node;
     return (head);
 }

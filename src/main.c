@@ -14,7 +14,7 @@
 
 void	set_initial_camera_data(t_union *un)
 {
-	vec_set(&un->camera.basis.position, 1, 0, 0);
+	vec_set(&un->camera.basis.position, 0, 0, 0);
 	vec_set(&un->camera.basis.up, 0, 1, 0);
 	vec_set(&un->camera.basis.look_at, 0, 0 , 1);
 	un->camera.projection_plane_distance = un->camera.basis.position.z + 1;
