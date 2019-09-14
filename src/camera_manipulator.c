@@ -12,6 +12,14 @@
 
 #include "rtv1.h"
 
+void update_projection_plane(t_union *un)
+{
+    if (un->camera.basis.position.z >= 0)
+            un->camera.projection_plane_distance = un->camera.basis.position.z + 1;
+    else
+        un->camera.projection_plane_distance = 1;
+}
+
 void move_camera(t_union *un, t_camera_move direction)
 {
     t_vec *camera_position;
@@ -25,10 +33,7 @@ void move_camera(t_union *un, t_camera_move direction)
         vec_set(camera_position, camera_position->x + look_at.x * CAMERA_MOVEMENT_STEP,
            camera_position->y + look_at.y * CAMERA_MOVEMENT_STEP,
            camera_position->z + look_at.z * CAMERA_MOVEMENT_STEP);
-         if (un->camera.basis.position.z >= 0)
-            un->camera.projection_plane_distance = un->camera.basis.position.z + 1;
-        else
-            un->camera.projection_plane_distance = 1;
+        update_projection_plane(un);
     }
     else if (direction == BACK)
     {
@@ -36,10 +41,7 @@ void move_camera(t_union *un, t_camera_move direction)
         vec_set(camera_position, camera_position->x + look_at.x * CAMERA_MOVEMENT_STEP,
            camera_position->y + look_at.y * CAMERA_MOVEMENT_STEP,
            camera_position->z + look_at.z * CAMERA_MOVEMENT_STEP);
-        if (un->camera.basis.position.z >= 0)
-            un->camera.projection_plane_distance = un->camera.basis.position.z + 1;
-        else
-            un->camera.projection_plane_distance = 1;
+        update_projection_plane(un);
     }
     else if (direction == LEFT)
     {
@@ -53,4 +55,41 @@ void move_camera(t_union *un, t_camera_move direction)
     }
 
     draw(un);
+}
+
+void update_look_at(t_union *un)
+{
+
+}
+
+void rotate_camera(t_union *un, t_camera_rotate direction)
+{
+    const float angle = 50;
+
+    if (direction == Y_FORWARD)
+    {
+        /*float tmp = un->camera.basis.position.x;
+        un->camera.basis.position.x = un->camera.basis.position.x * cos(angle) + un->camera.basis.position.z * sin(angle);
+        un->camera.basis.position.z = - tmp * sin(angle) + un->camera.basis.position.z * cos(angle);*/
+        /*float tmp = un->camera.basis.position.x;
+        un->camera.basis.position.x = un->camera.basis.position.y * cos(angle) - un->camera.basis.position.z * sin(angle);
+        un->camera.basis.position.y = un->camera.basis.position.y * sin(angle) + un->camera.basis.position.z * cos(angle);*/
+    }
+    else if (direction == Y_BACK)
+    {
+
+    }
+    else if (direction == X_LEFT)
+    {
+
+    }
+    else if (direction == X_RIGHT)
+    {
+        
+    }
+
+   
+    update_look_at(un);
+
+   // draw(un);
 }

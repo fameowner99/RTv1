@@ -31,6 +31,14 @@ int handle_events(t_union *un)
                 move_camera(un, LEFT);
             else if (un->sdl.event.key.keysym.sym == SDLK_RIGHT)
                 move_camera(un, RIGHT);
+            else if (un->sdl.event.key.keysym.sym == SDLK_w)
+                rotate_camera(un, Y_FORWARD);
+            else if (un->sdl.event.key.keysym.sym == SDLK_s)
+                rotate_camera(un, Y_BACK);
+            else if (un->sdl.event.key.keysym.sym == SDLK_a)
+                rotate_camera(un, X_LEFT);
+            else if (un->sdl.event.key.keysym.sym == SDLK_d)
+                rotate_camera(un, X_RIGHT);
         }
     }
 

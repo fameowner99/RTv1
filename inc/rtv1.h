@@ -42,6 +42,15 @@ typedef enum			e_camera_move
 	BACK
 }						t_camera_move;
 
+
+typedef enum			e_camera_rotate
+{
+	Y_BACK = 0,
+	Y_FORWARD,
+	X_LEFT,
+	X_RIGHT
+}						t_camera_rotate;
+
 typedef enum			e_object_type
 {
 	PLANE = 0,
@@ -129,5 +138,6 @@ void				draw_on_canvas(t_union *un, t_object *object, t_vec canvas);
 t_equation_solve	solve_equation(t_union *un, float k1, float k2, float k3);
 int					handle_events(t_union *un);
 void				move_camera(t_union *un, t_camera_move direction);
+void 				rotate_camera(t_union *un, t_camera_rotate direction);
 
 #endif
