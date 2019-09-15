@@ -44,4 +44,20 @@ void				add_objects_to_scene(t_union *un)
     
     un->lst = object_push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
 
+
+//plane
+    color.r = 10;
+    color.g = 4;
+    color.b = 255;
+    center.x = 0;
+    center.y = 0;
+    center.z = 20;
+    
+    t_vec n;
+    n.x = 0;
+    n.y = 1;
+    n.z = 0;
+
+    un->lst = object_push_back(un->lst, create_plane_node(center, n, PLANE, color));
+
 }

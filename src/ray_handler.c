@@ -51,6 +51,17 @@ t_equation_solve sphere_ray_intersection(t_union *un, t_object *object, t_vec vi
     return (solve_equation(un, k1, k2, k3));
 }
 
+t_equation_solve plane_ray_intersection(t_union *un, t_object *object, t_vec viewport, t_vec canvas)
+{
+    t_equation_solve solve;
+     t_plane *data = (t_plane *)object->data;
+    solve.t1 = un->camera.basis.position.z - 1;
+    solve.t2 = un->camera.basis.position.z - 1;
+
+    solve.t1 = -vec_dot_product(vec_sub(un->camera.basis.position, data->center), data->normal) /  vec_dot_product(viewport, data->normal);
+    return (solve);
+}
+
 int is_root_valid(t_union *un, float root, float closest_root, t_object *closest_object)
 {
     if (root < un->camera.projection_plane_distance)
@@ -80,6 +91,10 @@ t_object *get_closest_object(t_union *un, t_vec viewport, t_vec canvas)
     {
         if (object->type == SPHERE)
             solve = sphere_ray_intersection(un, object, viewport, canvas);
+        else if (object->type == PLANE)
+        {
+            solve = plane_ray_intersection(un, object, viewport, canvas);
+        }
         if (is_root_valid(un, solve.t1, closest_root, closest_object))
         {
             closest_object = object;

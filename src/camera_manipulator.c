@@ -71,9 +71,9 @@ void rotate_camera(t_union *un, t_camera_rotate direction)
         /*float tmp = un->camera.basis.position.x;
         un->camera.basis.position.x = un->camera.basis.position.x * cos(angle) + un->camera.basis.position.z * sin(angle);
         un->camera.basis.position.z = - tmp * sin(angle) + un->camera.basis.position.z * cos(angle);*/
-        /*float tmp = un->camera.basis.position.x;
-        un->camera.basis.position.x = un->camera.basis.position.y * cos(angle) - un->camera.basis.position.z * sin(angle);
-        un->camera.basis.position.y = un->camera.basis.position.y * sin(angle) + un->camera.basis.position.z * cos(angle);*/
+        //float tmp = un->camera.basis.position.x;
+       // un->camera.basis.position.x = un->camera.basis.position.y * cos(angle) - un->camera.basis.position.z * sin(angle);
+       // un->camera.basis.position.y = un->camera.basis.position.y * sin(angle) + un->camera.basis.position.z * cos(angle);
     }
     else if (direction == Y_BACK)
     {
@@ -91,5 +91,5 @@ void rotate_camera(t_union *un, t_camera_rotate direction)
    
     update_look_at(un);
 
-   // draw(un);
+   //draw(un);
 }

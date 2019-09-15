@@ -39,6 +39,16 @@ t_object        *create_sphere_node(t_vec center, float radius, t_object_type ty
     return (create_node(data, type, color));
 }
 
+t_object        *create_plane_node(t_vec center, t_vec normal, t_object_type type, t_color color)
+{
+    t_plane *data;
+
+    data = malloc(sizeof(t_plane));
+    vec_set(&data->center, center.x, center.y, center.z);
+    vec_set(&data->normal, normal.x, normal.y, normal.z);
+    return (create_node(data, type, color));
+}
+
 
 t_object      *object_push_back(t_object *head, t_object *node)
 {
