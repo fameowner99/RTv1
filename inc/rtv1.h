@@ -85,6 +85,14 @@ typedef struct			s_sphere
 	float				radius;
 }						t_sphere;
 
+typedef struct 			s_cylinder
+{
+	float				r;
+	t_vec				cap;
+	t_vec 				axis;
+	float				max;		
+}						t_cylinder;
+
 typedef struct			s_color
 {
 	uint8_t				r;
@@ -136,6 +144,7 @@ typedef struct			s_equation_solve
 void				add_objects_to_scene(t_union *un);
 t_object      	 	*create_sphere_node(t_vec center, float radius, t_object_type type, t_color color);
 t_object       		*create_plane_node(t_vec center, t_vec normal, t_object_type type, t_color color);
+t_object       		*create_cylinder_node(t_cylinder a_data, t_object_type type, t_color color);
 t_object	        *object_push_back(t_object *head, t_object *node);
 t_light				*light_push_back(t_light *head, t_light_type type, t_vec position, float intensity);
 void				rt(t_union *rt);

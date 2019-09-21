@@ -50,14 +50,27 @@ void				add_objects_to_scene(t_union *un)
     color.g = 4;
     color.b = 255;
     center.x = 0;
-    center.y = 0;
-    center.z = 20;
+    center.y = -3;
+    center.z = 0;
     
     t_vec n;
     n.x = 0;
-    n.y = 1;
+    n.y = -1;
     n.z = 0;
 
     un->lst = object_push_back(un->lst, create_plane_node(center, n, PLANE, color));
+
+
+//cylinder 
+    color.r = 255;
+    color.g = 255;
+    color.b = 255;
+    t_cylinder c;
+    vec_set(&c.axis, -1, 0, 0);
+    vec_set(&c.cap, 0, 0, 5);
+    c.max = 1;
+    c.r = 1;
+
+    un->lst = object_push_back(un->lst, create_cylinder_node(c, CYLINDER, color));
 
 }

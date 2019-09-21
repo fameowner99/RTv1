@@ -49,6 +49,18 @@ t_object        *create_plane_node(t_vec center, t_vec normal, t_object_type typ
     return (create_node(data, type, color));
 }
 
+t_object       *create_cylinder_node(t_cylinder a_data, t_object_type type, t_color color)
+{
+    t_cylinder *data;
+
+    data = malloc(sizeof(t_cylinder));
+    vec_set(&data->axis, a_data.axis.x, a_data.axis.y, a_data.axis.z);
+    vec_set(&data->cap, a_data.cap.x, a_data.cap.y, a_data.cap.z);
+    data->max = a_data.max;
+    data->r = a_data.r;
+
+    return (create_node(data, type, color));
+}
 
 t_object      *object_push_back(t_object *head, t_object *node)
 {
