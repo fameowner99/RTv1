@@ -42,8 +42,9 @@ t_equation_solve sphere_ray_intersection(t_union *un, t_object *object, t_vec vi
     float k1;
     float k2;
     float k3;
-    t_sphere *data = (t_sphere *)object->data;
+    t_sphere *data;
 
+    data = (t_sphere *)object->data;
     k1 = vec_dot_product(viewport, viewport);
     k2 = 2 * vec_dot_product(vec_sub(un->camera.basis.position, data->center), viewport);
     k3 = vec_dot_product(vec_sub(un->camera.basis.position, data->center), vec_sub(un->camera.basis.position, data->center)) - data->radius * data->radius;
@@ -54,7 +55,9 @@ t_equation_solve sphere_ray_intersection(t_union *un, t_object *object, t_vec vi
 t_equation_solve plane_ray_intersection(t_union *un, t_object *object, t_vec viewport)
 {
     t_equation_solve solve;
-    t_plane *data = (t_plane *)object->data;
+    t_plane *data;
+
+    data = (t_plane *)object->data;
     solve.t1 = un->camera.basis.position.z - 1;
     solve.t2 = un->camera.basis.position.z - 1;
     solve.t1 = -vec_dot_product(vec_sub(un->camera.basis.position, data->center), data->normal) /  vec_dot_product(viewport, data->normal);
@@ -63,12 +66,13 @@ t_equation_solve plane_ray_intersection(t_union *un, t_object *object, t_vec vie
 
 t_equation_solve cylinder_ray_intersaction(t_union *un, t_object *object, t_vec viewport)
 {
-    t_cylinder *data = (t_cylinder *)object->data;
+    t_cylinder *data;
     float k1;
     float k2;
     float k3;
     t_vec center_pos;
 
+    data = (t_cylinder *)object->data;
     center_pos = vec_add(data->cap, vec_mul(data->axis, data->max / 2));
     k1 = vec_dot_product(viewport, viewport) - vec_dot_product(viewport, data->axis) * vec_dot_product(viewport, data->axis);
     k2 = 2 * (vec_dot_product(vec_sub(un->camera.basis.position, center_pos), viewport) - vec_dot_product(viewport, data->axis) * vec_dot_product(vec_sub(un->camera.basis.position, center_pos), data->axis));
@@ -77,12 +81,22 @@ t_equation_solve cylinder_ray_intersaction(t_union *un, t_object *object, t_vec 
     return (solve_equation(un, k1, k2, k3));
 }
 
-int is_plane_perpendicular(t_union *un, t_object *object)
+t_equation_solve cone_ray_intersaction(t_union *un, t_object *object, t_vec viewport)
 {
-    t_plane *data = (t_plane *)object->data;
+    t_cone *data;
+    float k1;
+    float k2;
+    float k3;
+    t_vec center_pos;
 
-    return (vec_dot_product(un->camera.basis.position, data->normal) == 0);
+    data = (t_cone *)object->data;
+    center_pos = vec_add(data->vertex, vec_mul(data->axis, data->min + (data->max - data->min) / 2));
+    k1 = vec_dot_product(viewport, viewport) - (1 + data->tg * data->tg) * vec_dot_product(viewport, data->axis) * vec_dot_product(viewport, data->axis);
+    k2 = 2 * (vec_dot_product(viewport, vec_sub(un->camera.basis.position, center_pos)) - (1 + data->tg * data->tg) * vec_dot_product(viewport, data->axis) * vec_dot_product(vec_sub(un->camera.basis.position, center_pos), data->axis));
+    k3 = vec_dot_product(vec_sub(un->camera.basis.position, center_pos), vec_sub(un->camera.basis.position, center_pos)) - (1 + data->tg * data->tg) * vec_dot_product(vec_sub(un->camera.basis.position, center_pos), data->axis) * vec_dot_product(vec_sub(un->camera.basis.position, center_pos), data->axis);
+    return (solve_equation(un, k1, k2, k3));
 }
+
 
 int is_root_valid(t_union *un, float root, float closest_root, t_object *closest_object)
 {
@@ -117,6 +131,8 @@ t_object *get_closest_object(t_union *un, t_vec viewport, t_vec canvas)
             solve = plane_ray_intersection(un, object, viewport);
         else if (object->type == CYLINDER)
             solve = cylinder_ray_intersaction(un, object, viewport);
+        else if (object->type == CONE)
+            solve = cone_ray_intersaction(un, object, viewport);
         if (is_root_valid(un, solve.t1, closest_root, closest_object))
         {
             closest_object = object;

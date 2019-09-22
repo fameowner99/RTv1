@@ -29,23 +29,23 @@ static t_object       *create_node(void *data, t_object_type type, t_color color
 }
 
 
-t_object        *create_sphere_node(t_vec center, float radius, t_object_type type, t_color color)
+t_object        *create_sphere_node(t_sphere a_data, t_object_type type, t_color color)
 {
     t_sphere        *data;
 
     data = malloc(sizeof(t_sphere));
-    data->radius = radius;
-    vec_set(&data->center, center.x, center.y, center.z);
+    data->radius = a_data.radius;
+    vec_set_v(&data->center, a_data.center);
     return (create_node(data, type, color));
 }
 
-t_object        *create_plane_node(t_vec center, t_vec normal, t_object_type type, t_color color)
+t_object        *create_plane_node(t_plane a_data, t_object_type type, t_color color)
 {
     t_plane *data;
 
     data = malloc(sizeof(t_plane));
-    vec_set(&data->center, center.x, center.y, center.z);
-    vec_set(&data->normal, normal.x, normal.y, normal.z);
+    vec_set_v(&data->center, a_data.center);
+    vec_set_v(&data->normal, vec_unit(a_data.normal));
     return (create_node(data, type, color));
 }
 
@@ -54,11 +54,24 @@ t_object       *create_cylinder_node(t_cylinder a_data, t_object_type type, t_co
     t_cylinder *data;
 
     data = malloc(sizeof(t_cylinder));
-    vec_set(&data->axis, a_data.axis.x, a_data.axis.y, a_data.axis.z);
-    vec_set(&data->cap, a_data.cap.x, a_data.cap.y, a_data.cap.z);
+    vec_set_v(&data->axis, vec_unit(a_data.axis));
+    vec_set_v(&data->cap, a_data.cap);
     data->max = a_data.max;
     data->r = a_data.r;
 
+    return (create_node(data, type, color));
+}
+
+t_object        *create_cone_node(t_cone a_data, t_object_type type, t_color color)
+{
+    t_cone      *data;
+
+    data = malloc(sizeof(t_cone));
+    vec_set_v(&data->vertex, a_data.vertex);
+    vec_set_v(&data->axis, vec_unit(a_data.axis));
+    data->tg = a_data.tg;
+    data->min = a_data.min;
+    data->max = a_data.max;
     return (create_node(data, type, color));
 }
 

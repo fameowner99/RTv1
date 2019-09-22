@@ -2,75 +2,87 @@
 
 void				add_objects_to_scene(t_union *un)
 {
-    t_vec        center;
+
+    t_sphere sphere;
+    t_plane  plane;
+    t_cylinder cylinder;
+    t_cone      cone;
     t_color      color;
 
     color.r = 255;
     color.g = 4;
     color.b = 4;
-    center.x = -0.5;
-    center.y = 0;
-    center.z = 5;
-
-    
-    un->lst = object_push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
+    vec_set(&sphere.center, -0.5, 0, 5);
+    sphere.radius = 1;
+ 
+    un->lst = object_push_back(un->lst, create_sphere_node(sphere, SPHERE, color));
 
     color.r = 100;
     color.g = 100;
     color.b = 100;
-    center.x = 0.5;
-    center.y = 0;
-    center.z = 5;
-    un->lst = object_push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
-
+    vec_set(&sphere.center, 0.5, 0, 5);
+    sphere.radius = 1;
+    un->lst = object_push_back(un->lst, create_sphere_node(sphere, SPHERE, color));
 
     color.r = 0;
     color.g = 255;
     color.b = 0;
-    center.x = 0.5;
-    center.y = 0;
-    center.z = 10;
-    un->lst = object_push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
 
-
+    vec_set(&sphere.center, 0.5, 0, 10);
+    sphere.radius = 1;
+    un->lst = object_push_back(un->lst, create_sphere_node(sphere, SPHERE, color));
 
     color.r = 255;
     color.g = 4;
     color.b = 4;
-    center.x = 0;
-    center.y = 0;
-    center.z = -7;
+    vec_set(&sphere.center, 0, 0, -7);
+    sphere.radius = 1;
 
-    
-    un->lst = object_push_back(un->lst, create_sphere_node(center, 1, SPHERE, color));
+    un->lst = object_push_back(un->lst, create_sphere_node(sphere, SPHERE, color));
 
 
 //plane
     color.r = 10;
     color.g = 4;
     color.b = 255;
-    center.x = 0;
-    center.y = -3;
-    center.z = 0;
-    
-    t_vec n;
-    n.x = 0;
-    n.y = -1;
-    n.z = 0;
 
-    un->lst = object_push_back(un->lst, create_plane_node(center, n, PLANE, color));
+    vec_set(&plane.center, 0, -3, 0);
+    vec_set(&plane.normal, 0, -1, 0);
+    un->lst = object_push_back(un->lst, create_plane_node(plane, PLANE, color));
 
+
+//plane
+    color.r = 10;
+    color.g = 255;
+    color.b = 255;
+
+    vec_set(&plane.center, 0, 0, 100);
+    vec_set(&plane.normal, 0, 0, -1);
+    un->lst = object_push_back(un->lst, create_plane_node(plane, PLANE, color));
 
 //cylinder 
     color.r = 255;
     color.g = 255;
     color.b = 255;
-    t_cylinder c;
-    vec_set(&c.axis, -1, 0, 0);
-    vec_set(&c.cap, 0, 0, 5);
-    c.max = 1;
-    c.r = 1;
 
-    un->lst = object_push_back(un->lst, create_cylinder_node(c, CYLINDER, color));
+    vec_set(&cylinder.axis, 0, 1, 0);
+    vec_set(&cylinder.cap, 0, 0, 6);
+    cylinder.max = 1;
+    cylinder.r = 1;
 
+    un->lst = object_push_back(un->lst, create_cylinder_node(cylinder, CYLINDER, color));
+
+
+//cone
+
+    color.r = 255;
+    color.g = 255;
+    color.b = 0;
+    vec_set(&cone.vertex, -4, 5, 10);
+    vec_set(&cone.axis, 0, -1, 0);
+    cone.tg = tan(45 * M_PI / 180);
+    cone.min = 0;
+    cone.max = 5;
+
+    un->lst = object_push_back(un->lst, create_cone_node(cone, CONE, color));
 }
