@@ -150,6 +150,8 @@ typedef struct			s_equation_solve
 	float				t2;
 }						t_equation_solve;
 
+t_color					g_background_color;
+
 void				add_objects_to_scene(t_union *un);
 t_object      	 	*create_sphere_node(t_sphere a_data, t_object_type type, t_color color);
 t_object       		*create_plane_node(t_plane a_data, t_object_type type, t_color color);
@@ -160,10 +162,11 @@ t_light				*light_push_back(t_light *head, t_light_type type, t_vec position, fl
 void				rt(t_union *rt);
 void				ray_intersection(t_union *un);
 void				draw(t_union *un);
-void				draw_on_canvas(t_union *un, t_object *object, t_vec canvas);
+void				draw_on_canvas(t_union *un, t_color color, t_vec canvas);
 t_equation_solve	solve_equation(t_union *un, float k1, float k2, float k3);
 int					handle_events(t_union *un);
 void				move_camera(t_union *un, t_camera_move direction);
 void 				rotate_camera(t_union *un, t_camera_rotate direction);
+t_color				get_color_with_light(t_union *un, t_object *closest_object, float closest_root, t_vec viewport);
 
 #endif

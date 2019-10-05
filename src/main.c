@@ -25,6 +25,9 @@ int		main()
 	t_union un;
 
 	un.lst = NULL;
+	g_background_color.r = BACKGROUND_COLOR_R;
+	g_background_color.g = BACKGROUND_COLOR_G;
+	g_background_color.b = BACKGROUND_COLOR_B; 
 	set_initial_camera_data(&un);
 	add_objects_to_scene(&un);
 	rt(&un);

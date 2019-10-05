@@ -23,8 +23,8 @@ t_equation_solve solve_equation(t_union *un, float k1, float k2, float k3)
     d = k2 * k2 - 4 * k1 * k3;
     if (d < 0)
         return (solve);
-    solve.t1 = -k2 - sqrt(d) / (2 * k1);
-    solve.t2 = -k2 + sqrt(d) / (2 * k1);
+    solve.t1 = (-k2 - sqrt(d)) / (2 * k1);
+    solve.t2 = (-k2 + sqrt(d)) / (2 * k1);
     return (solve);
 }
 
@@ -112,7 +112,7 @@ int is_root_valid(t_union *un, float root, float closest_root, t_object *closest
     return (FALSE);
 }
 
-t_object *get_closest_object(t_union *un, t_vec viewport, t_vec canvas)
+t_color get_closest_object_color(t_union *un, t_vec viewport)
 {
     t_object *object;
     t_object *closest_object;
@@ -145,12 +145,12 @@ t_object *get_closest_object(t_union *un, t_vec viewport, t_vec canvas)
         }
         object = object->next;
     }
-    return (closest_object);
+    return (get_color_with_light(un, closest_object, closest_root, viewport));
 }
 
 void ray_intersection(t_union *un)
 {
-    t_object *closest_object;
+    t_color color;
     t_vec canvas;
     t_vec viewport;
 
@@ -162,8 +162,8 @@ void ray_intersection(t_union *un)
         {
             viewport = canvas_to_viewport(canvas);
             viewport.z = un->camera.projection_plane_distance;
-            closest_object = get_closest_object(un, viewport, canvas);
-            draw_on_canvas(un, closest_object, canvas);
+            color = get_closest_object_color(un, viewport);
+            draw_on_canvas(un, color, canvas);
             ++canvas.x;
         }
         ++canvas.y;
