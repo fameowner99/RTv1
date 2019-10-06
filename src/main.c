@@ -24,7 +24,8 @@ int		main()
 {
 	t_union un;
 
-	un.lst = NULL;
+	un.objects = NULL;
+	un.lights = NULL;
 	g_background_color.r = BACKGROUND_COLOR_R;
 	g_background_color.g = BACKGROUND_COLOR_G;
 	g_background_color.b = BACKGROUND_COLOR_B; 

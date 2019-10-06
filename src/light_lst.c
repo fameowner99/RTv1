@@ -12,26 +12,26 @@
 
 #include "rtv1.h"
 
-static t_light     *create_node(t_light_type type, t_vec position, float intensity)
+static t_light     *create_node(t_light *a_light)
 {
     t_light *node;
 
     node = malloc(sizeof(t_light));
-    vec_set(&node->position, position.x, position.y, position.z);
-    node->type = type;
-    node->intensity = intensity;
+    vec_set_v(&node->position, a_light->position);
+    node->type = a_light->type;
+    node->intensity = a_light->intensity;
     return (node);
 }
 
-t_light     *light_push_back(t_light *head, t_light_type type, t_vec position, float intensity)
+t_light     *light_push_back(t_light *head, t_light *a_light)
 {
     t_light *current_node;
 
     if (!head)
-        return (create_node(type, position, intensity));
+        return (create_node(a_light));
     current_node = head;
     while (current_node->next)
         current_node = current_node->next;
-    current_node->next = create_node(type, position, intensity);
+    current_node->next = create_node(a_light);
     return (head);
 }

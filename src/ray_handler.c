@@ -121,7 +121,7 @@ t_color get_closest_object_color(t_union *un, t_vec viewport)
 
     solve.t1 = un->camera.basis.position.z - 1;
     solve.t2 = un->camera.basis.position.z - 1;
-    object = un->lst;
+    object = un->objects;
     closest_object = NULL;
     while (object)
     {

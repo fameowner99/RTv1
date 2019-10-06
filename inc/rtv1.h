@@ -139,7 +139,8 @@ typedef struct			s_camera
 
 typedef struct			s_union
 {
-	t_object			*lst;
+	t_object			*objects;
+	t_light				*lights;
 	t_sdl_data			sdl;
 	t_camera			camera;
 }						t_union;
@@ -153,12 +154,12 @@ typedef struct			s_equation_solve
 t_color					g_background_color;
 
 void				add_objects_to_scene(t_union *un);
-t_object      	 	*create_sphere_node(t_sphere a_data, t_object_type type, t_color color);
-t_object       		*create_plane_node(t_plane a_data, t_object_type type, t_color color);
-t_object       		*create_cylinder_node(t_cylinder a_data, t_object_type type, t_color color);
-t_object        	*create_cone_node(t_cone a_data, t_object_type type, t_color color);
+t_object      	 	*create_sphere_node(t_sphere *a_data, t_object_type type, t_color color);
+t_object       		*create_plane_node(t_plane *a_data, t_object_type type, t_color color);
+t_object       		*create_cylinder_node(t_cylinder *a_data, t_object_type type, t_color color);
+t_object        	*create_cone_node(t_cone *a_data, t_object_type type, t_color color);
 t_object	        *object_push_back(t_object *head, t_object *node);
-t_light				*light_push_back(t_light *head, t_light_type type, t_vec position, float intensity);
+t_light				*light_push_back(t_light *head, t_light *a_light);
 void				rt(t_union *rt);
 void				ray_intersection(t_union *un);
 void				draw(t_union *un);
@@ -168,5 +169,9 @@ int					handle_events(t_union *un);
 void				move_camera(t_union *un, t_camera_move direction);
 void 				rotate_camera(t_union *un, t_camera_rotate direction);
 t_color				get_color_with_light(t_union *un, t_object *closest_object, float closest_root, t_vec viewport);
+t_vec				get_normal_sphere(t_object *object, t_vec point);
+t_vec				get_normal_plane(t_object *object, t_vec point);
+t_vec				get_normal_cylinder(t_object *object, t_vec point);
+t_vec				get_normal_cone(t_object *object, t_vec point);
 
 #endif
