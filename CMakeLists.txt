@@ -26,7 +26,8 @@ ${CMAKE_SOURCE_DIR}/src/ray_handler.c
 ${CMAKE_SOURCE_DIR}/src/renderer.c
 ${CMAKE_SOURCE_DIR}/src/rt.c)
 
-#target_link_libraries(RTv1 ${LIBVEC_LIB}) !!!!
+target_link_libraries(RTv1 ft)
+target_link_libraries(RTv1 vec)
 target_link_libraries(RTv1 ${SDL2_LIBRARIES})
 
 
