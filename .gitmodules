@@ -1,9 +1,9 @@
 [submodule "libft"]
 	path = libft
 	url = https://github.com/fameowner99/libft.git
-[submodule "SDL_LIBRARY"]
-	path = SDL_LIBRARY
-	url = https://github.com/fameowner99/SDL_LIBRARY.git
 [submodule "libvec"]
 	path = libvec
 	url = https://github.com/fameowner99/libvec.git
+[submodule "SDL_SRC_LIBRARY"]
+	path = SDL_SRC_LIBRARY
+	url = https://github.com/fameowner99/SDL2_SRC
