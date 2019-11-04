@@ -47,7 +47,6 @@ if(NOT POW_FUNCTION_EXISTS AND NOT NEED_LINKING_AGAINST_LIBM)
       endif()
   endif()
 endif()
-
 if (NEED_LINKING_AGAINST_LIBM)
      target_link_libraries(RTv1 m)
 endif()

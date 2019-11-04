@@ -18,7 +18,7 @@ t_vec get_normal_sphere(t_object *object, t_vec point)
 
     if (object->type != SPHERE)
     {
-        ft_printf(RED"Error during calculation sphere normal\n"RESET);
+        //ft_printf(RED"Error during calculation sphere normal\n"RESET);
         exit(666);
     }
     data = (t_sphere *)object->data;
@@ -32,7 +32,7 @@ t_vec				get_normal_plane(t_object *object, t_vec point)
 
     if (object->type != PLANE)
     {
-        ft_printf(RED"Error during calculation plane normal\n"RESET);
+       // ft_printf(RED"Error during calculation plane normal\n"RESET);
         exit(666);
     }
     data = (t_plane *)object->data;
@@ -46,7 +46,7 @@ t_vec				get_normal_cylinder(t_object *object, t_vec point)
 
     if (object->type != CYLINDER)
     {
-        ft_printf(RED"Error during calculation cylinder normal\n"RESET);
+       // ft_printf(RED"Error during calculation cylinder normal\n"RESET);
         exit(666);
     }
     data = (t_cylinder *)object->data;
@@ -61,7 +61,7 @@ t_vec				get_normal_cone(t_object *object, t_vec point)
 
     if (object->type != CONE)
     {
-        ft_printf(RED"Error during calculation cone normal\n"RESET);
+        //ft_printf(RED"Error during calculation cone normal\n"RESET);
         exit(666);
     }
     data = (t_cone *)object->data;
