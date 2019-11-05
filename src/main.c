@@ -20,7 +20,11 @@ void	set_initial_camera_data(t_union *un)
 	un->camera.projection_plane_distance = un->camera.basis.position.z + 1;
 }
 
-int		main()
+#if (_MSC_VER)
+# undef main
+#endif
+
+int		main(int argc, char *argv[])
 {
 	t_union un;
 

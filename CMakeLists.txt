@@ -30,7 +30,11 @@ ${CMAKE_SOURCE_DIR}/src/rt.c)
 
 target_link_libraries(RTv1 ft)
 target_link_libraries(RTv1 vec)
-target_link_libraries(RTv1 SDL2)
+
+## SDL2
+
+add_library(SDL2::SDL2 ALIAS SDL2-static)
+target_link_libraries(RTv1 SDL2::SDL2)
 #target_link_libraries(RTv1 ${SDL2_LIBRARIES})
 
 
