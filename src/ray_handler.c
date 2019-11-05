@@ -23,8 +23,8 @@ t_equation_solve solve_equation(t_union *un, float k1, float k2, float k3)
     d = k2 * k2 - 4 * k1 * k3;
     if (d < 0)
         return (solve);
-    solve.t1 = (-k2 - sqrt(d)) / (2 * k1);
-    solve.t2 = (-k2 + sqrt(d)) / (2 * k1);
+    solve.t1 = (-k2 - sqrt(d)) / (2. * k1);
+    solve.t2 = (-k2 + sqrt(d)) / (2. * k1);
     return (solve);
 }
 
@@ -123,6 +123,7 @@ t_color get_closest_object_color(t_union *un, t_vec viewport)
     solve.t2 = un->camera.basis.position.z - 1;
     object = un->objects;
     closest_object = NULL;
+    closest_root = un->camera.basis.position.z - 1;
     while (object)
     {
         if (object->type == SPHERE)

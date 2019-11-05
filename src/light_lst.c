@@ -16,10 +16,12 @@ static t_light     *create_node(t_light *a_light)
 {
     t_light *node;
 
-    node = malloc(sizeof(t_light));
+    if (!(node = malloc(sizeof(t_light))))
+        return NULL;
     vec_set_v(&node->position, a_light->position);
     node->type = a_light->type;
     node->intensity = a_light->intensity;
+    node->next = NULL;
     return (node);
 }
 
