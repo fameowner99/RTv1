@@ -17,8 +17,11 @@ void rt(t_union *un)
     int          is_running;
 
     if (!init_sld(un))
-        exit(666);
-       // ft_printf("Error happend during SDL initialization.\n");
+    {
+		ft_printf("Error happend during SDL initialization.\n");
+		exit(666);
+	}
+
 
     draw(un);
     is_running = TRUE;

@@ -48,7 +48,7 @@ t_vec      get_normal(t_object *object, t_vec point)
         return (get_normal_cylinder(object, point));
     else if (object->type == CONE)
         return (get_normal_cone(object, point));
-    //ft_printf(RED"Unknown object\n"RESET);
+    ft_printf(RED"Unknown object\n"RESET);
     exit(666);       
 }
 
