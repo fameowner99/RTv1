@@ -4,17 +4,12 @@ project(RTv1)
 
 include(CheckFunctionExists)
 
-#find_package(SDL2 REQUIRED)
-
 
 add_subdirectory (${CMAKE_SOURCE_DIR}/libvec)
 add_subdirectory (${CMAKE_SOURCE_DIR}/libft)
 add_subdirectory (${CMAKE_SOURCE_DIR}/SDL_SRC_LIBRARY)
 
 set(INC ${CMAKE_SOURCE_DIR}/inc ${CMAKE_SOURCE_DIR}/libft/inc ${CMAKE_SOURCE_DIR}/libvec/inc)
-
-include_directories(${INC})
-#include_directories(${SDL2_INCLUDE_DIRS})
 
 add_executable(RTv1 ${CMAKE_SOURCE_DIR}/src/main.c
 ${CMAKE_SOURCE_DIR}/src/camera_manipulator.c
@@ -35,8 +30,8 @@ target_link_libraries(RTv1 vec)
 
 add_library(SDL2::SDL2 ALIAS SDL2-static)
 target_link_libraries(RTv1 SDL2::SDL2)
-#target_link_libraries(RTv1 ${SDL2_LIBRARIES})
 
+target_include_directories(RTv1 PRIVATE ${INC})
 
 if(NOT POW_FUNCTION_EXISTS AND NOT NEED_LINKING_AGAINST_LIBM)
   CHECK_FUNCTION_EXISTS(pow POW_FUNCTION_EXISTS)
