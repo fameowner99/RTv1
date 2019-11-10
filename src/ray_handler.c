@@ -58,13 +58,12 @@ t_equation_solve plane_ray_intersection(t_union *un, t_object *object, t_vec vie
     t_plane *data;
 
     data = (t_plane *)object->data;
-    solve.t1 = un->camera.basis.position.z - 1;
     solve.t2 = un->camera.basis.position.z - 1;
     solve.t1 = -vec_dot_product(vec_sub(un->camera.basis.position, data->center), data->normal) /  vec_dot_product(viewport, data->normal);
     return (solve);
 }
 
-t_equation_solve cylinder_ray_intersaction(t_union *un, t_object *object, t_vec viewport)
+t_equation_solve cylinder_ray_intersection(t_union *un, t_object *object, t_vec viewport)
 {
     t_cylinder *data;
     float k1;
@@ -131,7 +130,7 @@ t_color get_closest_object_color(t_union *un, t_vec viewport)
         else if (object->type == PLANE)
             solve = plane_ray_intersection(un, object, viewport);
         else if (object->type == CYLINDER)
-            solve = cylinder_ray_intersaction(un, object, viewport);
+            solve = cylinder_ray_intersection(un, object, viewport);
         else if (object->type == CONE)
             solve = cone_ray_intersaction(un, object, viewport);
         if (is_root_valid(un, solve.t1, closest_root, closest_object))
