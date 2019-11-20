@@ -171,7 +171,7 @@ void 				rotate_camera(t_union *un, t_camera_rotate direction);
 t_color				get_color_with_light(t_union *un, t_object *closest_object, float closest_root, t_vec viewport);
 t_vec				get_normal_sphere(t_object *object, t_vec point);
 t_vec				get_normal_plane(t_object *object, t_vec point);
-t_vec				get_normal_cylinder(t_object *object, t_vec point);
-t_vec				get_normal_cone(t_object *object, t_vec point);
+t_vec				get_normal_cylinder(t_object *object, t_vec point, t_vec viewport, float closest_root, t_union *un);
+t_vec				get_normal_cone(t_object *object, t_vec point, t_vec viewport, float closest_root, t_union *un);
 
 #endif
