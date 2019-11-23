@@ -173,5 +173,9 @@ t_vec				get_normal_sphere(t_object *object, t_vec point);
 t_vec				get_normal_plane(t_object *object, t_vec point);
 t_vec				get_normal_cylinder(t_object *object, t_vec point, t_vec viewport, float closest_root, t_union *un);
 t_vec				get_normal_cone(t_object *object, t_vec point, t_vec viewport, float closest_root, t_union *un);
+t_equation_solve 	sphere_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
+t_equation_solve 	plane_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
+t_equation_solve 	cylinder_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
+t_equation_solve	cone_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
 
 #endif

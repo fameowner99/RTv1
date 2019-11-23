@@ -37,7 +37,7 @@ t_vec canvas_to_viewport(t_vec canvas)
     return (viewport);
 }
 
-t_equation_solve sphere_ray_intersection(t_union *un, t_object *object, t_vec viewport)
+t_equation_solve sphere_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point)
 {
     float k1;
     float k2;
@@ -45,25 +45,25 @@ t_equation_solve sphere_ray_intersection(t_union *un, t_object *object, t_vec vi
     t_sphere *data;
 
     data = (t_sphere *)object->data;
-    k1 = vec_dot_product(viewport, viewport);
-    k2 = 2 * vec_dot_product(vec_sub(un->camera.basis.position, data->center), viewport);
-    k3 = vec_dot_product(vec_sub(un->camera.basis.position, data->center), vec_sub(un->camera.basis.position, data->center)) - data->radius * data->radius;
+    k1 = vec_dot_product(direction, direction);
+    k2 = 2 * vec_dot_product(vec_sub(start_point, data->center), direction);
+    k3 = vec_dot_product(vec_sub(start_point, data->center), vec_sub(start_point, data->center)) - data->radius * data->radius;
 
     return (solve_equation(un, k1, k2, k3));
 }
 
-t_equation_solve plane_ray_intersection(t_union *un, t_object *object, t_vec viewport)
+t_equation_solve plane_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point)
 {
     t_equation_solve solve;
     t_plane *data;
 
     data = (t_plane *)object->data;
     solve.t2 = un->camera.basis.position.z - 1;
-    solve.t1 = -vec_dot_product(vec_sub(un->camera.basis.position, data->center), data->normal) /  vec_dot_product(viewport, data->normal);
+    solve.t1 = -vec_dot_product(vec_sub(start_point, data->center), data->normal) /  vec_dot_product(direction, data->normal);
     return (solve);
 }
 
-t_equation_solve cylinder_ray_intersection(t_union *un, t_object *object, t_vec viewport)
+t_equation_solve cylinder_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point)
 {
     t_cylinder *data;
     float k1;
@@ -73,14 +73,14 @@ t_equation_solve cylinder_ray_intersection(t_union *un, t_object *object, t_vec 
 
     data = (t_cylinder *)object->data;
     center_pos = vec_add(data->cap, vec_mul(data->axis, data->max / 2));
-    k1 = vec_dot_product(viewport, viewport) - vec_dot_product(viewport, data->axis) * vec_dot_product(viewport, data->axis);
-    k2 = 2 * (vec_dot_product(vec_sub(un->camera.basis.position, center_pos), viewport) - vec_dot_product(viewport, data->axis) * vec_dot_product(vec_sub(un->camera.basis.position, center_pos), data->axis));
-    k3 = vec_dot_product(vec_sub(un->camera.basis.position, center_pos), vec_sub(un->camera.basis.position, center_pos)) -
-        vec_dot_product(vec_sub(un->camera.basis.position, center_pos), data->axis) * vec_dot_product(vec_sub(un->camera.basis.position, center_pos), data->axis) - data->r * data->r;
+    k1 = vec_dot_product(direction, direction) - vec_dot_product(direction, data->axis) * vec_dot_product(direction, data->axis);
+    k2 = 2 * (vec_dot_product(vec_sub(start_point, center_pos), direction) - vec_dot_product(direction, data->axis) * vec_dot_product(vec_sub(start_point, center_pos), data->axis));
+    k3 = vec_dot_product(vec_sub(start_point, center_pos), vec_sub(start_point, center_pos)) -
+        vec_dot_product(vec_sub(start_point, center_pos), data->axis) * vec_dot_product(vec_sub(start_point, center_pos), data->axis) - data->r * data->r;
     return (solve_equation(un, k1, k2, k3));
 }
 
-t_equation_solve cone_ray_intersaction(t_union *un, t_object *object, t_vec viewport)
+t_equation_solve cone_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point)
 {
     t_cone *data;
     float k1;
@@ -90,9 +90,9 @@ t_equation_solve cone_ray_intersaction(t_union *un, t_object *object, t_vec view
 
     data = (t_cone *)object->data;
     center_pos = vec_add(data->vertex, vec_mul(data->axis, data->min + (data->max - data->min) / 2));
-    k1 = vec_dot_product(viewport, viewport) - (1 + data->tg * data->tg) * vec_dot_product(viewport, data->axis) * vec_dot_product(viewport, data->axis);
-    k2 = 2 * (vec_dot_product(viewport, vec_sub(un->camera.basis.position, center_pos)) - (1 + data->tg * data->tg) * vec_dot_product(viewport, data->axis) * vec_dot_product(vec_sub(un->camera.basis.position, center_pos), data->axis));
-    k3 = vec_dot_product(vec_sub(un->camera.basis.position, center_pos), vec_sub(un->camera.basis.position, center_pos)) - (1 + data->tg * data->tg) * vec_dot_product(vec_sub(un->camera.basis.position, center_pos), data->axis) * vec_dot_product(vec_sub(un->camera.basis.position, center_pos), data->axis);
+    k1 = vec_dot_product(direction, direction) - (1 + data->tg * data->tg) * vec_dot_product(direction, data->axis) * vec_dot_product(direction, data->axis);
+    k2 = 2 * (vec_dot_product(direction, vec_sub(start_point, center_pos)) - (1 + data->tg * data->tg) * vec_dot_product(direction, data->axis) * vec_dot_product(vec_sub(start_point, center_pos), data->axis));
+    k3 = vec_dot_product(vec_sub(start_point, center_pos), vec_sub(start_point, center_pos)) - (1 + data->tg * data->tg) * vec_dot_product(vec_sub(start_point, center_pos), data->axis) * vec_dot_product(vec_sub(start_point, center_pos), data->axis);
     return (solve_equation(un, k1, k2, k3));
 }
 
@@ -126,13 +126,13 @@ t_color get_closest_object_color(t_union *un, t_vec viewport)
     while (object)
     {
         if (object->type == SPHERE)
-            solve = sphere_ray_intersection(un, object, viewport);
+            solve = sphere_ray_intersection(un, object, viewport, un->camera.basis.position);
         else if (object->type == PLANE)
-            solve = plane_ray_intersection(un, object, viewport);
+            solve = plane_ray_intersection(un, object, viewport, un->camera.basis.position);
         else if (object->type == CYLINDER)
-            solve = cylinder_ray_intersection(un, object, viewport);
+            solve = cylinder_ray_intersection(un, object, viewport, un->camera.basis.position);
         else if (object->type == CONE)
-            solve = cone_ray_intersaction(un, object, viewport);
+            solve = cone_ray_intersection(un, object, viewport, un->camera.basis.position);
         if (is_root_valid(un, solve.t1, closest_root, closest_object))
         {
             closest_object = object;
