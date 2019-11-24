@@ -26,6 +26,7 @@
 # define BACKGROUND_COLOR_G 0
 # define BACKGROUND_COLOR_B 0
 # define CAMERA_MOVEMENT_STEP 1
+# define INF FLT_MAX
 
 #include <stdlib.h>
 #include "SDL.h"

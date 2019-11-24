@@ -12,33 +12,34 @@
 
 #include "rtv1.h"
 
-int			is_lit(t_union *un, t_vec point, t_vec direction)
+int			is_lit(t_union *un, t_vec point, t_vec light_position)
 {
 	t_object *object;
 	t_equation_solve solve;
+	t_vec direction;
 
-	solve.t1 = un->camera.basis.position.z - 1;
-	solve.t2 = un->camera.basis.position.z - 1;
+	solve.t1 = INF;
+	solve.t2 = INF;
 
+	direction = vec_unit(vec_sub(point, light_position));
 	object = un->objects;
 
-	/*while (object)
+	while (object)
 	{
 		if (object->type == SPHERE)
 			solve = sphere_ray_intersection(un, object, direction, point);
-		else if (object->type == PLANE)
-			solve = plane_ray_intersection(un, object, direction, point);
+		//else if (object->type == PLANE)
+		//	solve = plane_ray_intersection(un, object, direction, point);
 		else if (object->type == CYLINDER)
 			solve = cylinder_ray_intersection(un, object, direction, point);
 		else if (object->type == CONE)
 			solve = cone_ray_intersection(un, object, direction, point);
 
-		if (solve.t1 > un->camera.basis.position.z + un->camera.projection_plane_distance
-			|| solve.t2 > un->camera.basis.position.z + un->camera.projection_plane_distance)
+		if ((solve.t1 > 0.001f && solve.t1 < INF)
+			|| (solve.t2 > 0.001f && solve.t2 < INF))
 			return (FALSE);
 		object = object->next;
-	}*/
-
+	}
 	return (TRUE);
 }
 
@@ -58,7 +59,7 @@ float       get_intensity(t_union *un, t_vec normal, t_vec point)
         else if (light->type == POINT)
         {
             l = vec_unit(vec_sub(light->position, point));
-            if (is_lit(un, point, l))
+            if (is_lit(un, point, light->position))
             {
 				cos_alpha = vec_dot_product(l, normal);
 				if (cos_alpha > 0)
