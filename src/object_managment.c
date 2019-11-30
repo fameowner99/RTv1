@@ -90,7 +90,7 @@ void				add_objects_to_scene(t_union *un)
 
 
     //light
-    light.intensity = 0.1;
+    light.intensity = 0.3;
     light.type = AMBIENT;
     un->lights = light_push_back(un->lights, &light);
 

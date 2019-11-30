@@ -18,8 +18,8 @@ t_equation_solve solve_equation(t_union *un, float k1, float k2, float k3)
     float d;
     t_equation_solve solve;
 
-    solve.t1 = un->camera.basis.position.z - 1;
-    solve.t2 = un->camera.basis.position.z - 1;
+    solve.t1 = INF;
+    solve.t2 = INF;
     d = k2 * k2 - 4 * k1 * k3;
     if (d < 0)
         return (solve);
@@ -58,7 +58,7 @@ t_equation_solve plane_ray_intersection(t_union *un, t_object *object, t_vec dir
     t_plane *data;
 
     data = (t_plane *)object->data;
-    solve.t2 = un->camera.basis.position.z - 1;
+    solve.t2 = INF;
     solve.t1 = -vec_dot_product(vec_sub(start_point, data->center), data->normal) /  vec_dot_product(direction, data->normal);
     return (solve);
 }
@@ -118,11 +118,11 @@ t_color get_closest_object_color(t_union *un, t_vec viewport)
     float closest_root;
     t_equation_solve solve;
 
-    solve.t1 = un->camera.basis.position.z - 1;
-    solve.t2 = un->camera.basis.position.z - 1;
+    solve.t1 = INF;
+    solve.t2 = INF;
     object = un->objects;
     closest_object = NULL;
-    closest_root = un->camera.basis.position.z - 1;
+    closest_root = INF;
     while (object)
     {
         if (object->type == SPHERE)

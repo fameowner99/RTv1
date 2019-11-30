@@ -21,22 +21,22 @@ int			is_lit(t_union *un, t_vec point, t_vec light_position)
 	solve.t1 = INF;
 	solve.t2 = INF;
 
-	direction = vec_unit(vec_sub(point, light_position));
+	direction = vec_sub(light_position, point);
 	object = un->objects;
 
 	while (object)
 	{
 		if (object->type == SPHERE)
 			solve = sphere_ray_intersection(un, object, direction, point);
-		//else if (object->type == PLANE)
-		//	solve = plane_ray_intersection(un, object, direction, point);
+		else if (object->type == PLANE)
+			solve = plane_ray_intersection(un, object, direction, point);
 		else if (object->type == CYLINDER)
 			solve = cylinder_ray_intersection(un, object, direction, point);
 		else if (object->type == CONE)
 			solve = cone_ray_intersection(un, object, direction, point);
 
-		if ((solve.t1 > 0.001f && solve.t1 < INF)
-			|| (solve.t2 > 0.001f && solve.t2 < INF))
+		if ((solve.t1 >= 0.001f && solve.t1 <= 1)
+			|| (solve.t2 >= 0.001f && solve.t2 <= 1))
 			return (FALSE);
 		object = object->next;
 	}
@@ -94,10 +94,9 @@ t_color	    get_color_with_light(t_union *un, t_object *closest_object, float cl
     if (!closest_object)
         return g_background_color;
     point =  vec_add(un->camera.basis.position, vec_mul(vec_unit(vec_sub(viewport, un->camera.basis.position)), closest_root));
-    if (closest_object)
     intensity = get_intensity(un, get_normal(closest_object, point, viewport, closest_root, un), point);
-    result_color.r = closest_object->color.r * intensity;
-    result_color.g = closest_object->color.g * intensity;
-    result_color.b = closest_object->color.b * intensity;
+    result_color.r = (uint8_t)(closest_object->color.r * intensity);
+    result_color.g = (uint8_t)(closest_object->color.g * intensity);
+    result_color.b = (uint8_t)(closest_object->color.b * intensity);
     return (result_color);
 }
