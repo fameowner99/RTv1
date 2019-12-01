@@ -43,12 +43,14 @@ int			is_lit(t_union *un, t_vec point, t_vec light_position)
 	return (TRUE);
 }
 
-float       get_intensity(t_union *un, t_vec normal, t_vec point)
+float       get_intensity(t_union *un, t_vec normal, t_vec point, t_vec direction)
 {
     t_light *light;
     t_vec    l;
+    t_vec	 r;
     float   intensity;
     float   cos_alpha;
+    float 	cos_beta;
 
     intensity = 0;
     light = un->lights;
@@ -58,10 +60,15 @@ float       get_intensity(t_union *un, t_vec normal, t_vec point)
             intensity += light->intensity;
         else if (light->type == POINT)
         {
-            l = vec_unit(vec_sub(light->position, point));
+            l = vec_sub(light->position, point);
             if (is_lit(un, point, light->position))
             {
-				cos_alpha = vec_dot_product(l, normal);
+				cos_alpha = vec_dot_product(vec_unit(l), normal);
+				r = vec_sub(vec_mul(normal, 2 * vec_dot_product(normal, l)), l);
+				cos_beta = vec_dot_product(vec_unit(r), vec_unit(direction));
+
+				if (cos_beta > 0)
+					intensity += pow(cos_beta, 10) * light->intensity;
 				if (cos_alpha > 0)
 					intensity += cos_alpha * light->intensity;
 			}
@@ -94,7 +101,7 @@ t_color	    get_color_with_light(t_union *un, t_object *closest_object, float cl
     if (!closest_object)
         return g_background_color;
     point =  vec_add(un->camera.basis.position, vec_mul(vec_unit(vec_sub(viewport, un->camera.basis.position)), closest_root));
-    intensity = get_intensity(un, get_normal(closest_object, point, viewport, closest_root, un), point);
+    intensity = get_intensity(un, get_normal(closest_object, point, viewport, closest_root, un), point, vec_unit(vec_sub(viewport, un->camera.basis.position)));
     result_color.r = (uint8_t)(closest_object->color.r * intensity);
     result_color.g = (uint8_t)(closest_object->color.g * intensity);
     result_color.b = (uint8_t)(closest_object->color.b * intensity);

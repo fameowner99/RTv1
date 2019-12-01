@@ -95,13 +95,13 @@ void				add_objects_to_scene(t_union *un)
     un->lights = light_push_back(un->lights, &light);
 
 
-    light.intensity = 0.5;
+    light.intensity = 0.3;
     light.type = POINT;
-    vec_set(&light.position, 0, 0, 0);
-    un->lights = light_push_back(un->lights, &light);
+    vec_set(&light.position, 0, 5, 0);
+   // un->lights = light_push_back(un->lights, &light);
 
     light.intensity = 0.5;
     light.type = POINT;
-    vec_set(&light.position, 0, 10, 10);
-    //un->lights = light_push_back(un->lights, &light);
+    vec_set(&light.position, -5, 5, 1);
+    un->lights = light_push_back(un->lights, &light);
 }
