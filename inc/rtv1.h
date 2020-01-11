@@ -27,6 +27,7 @@
 # define BACKGROUND_COLOR_B 0
 # define CAMERA_MOVEMENT_STEP 1
 # define INF FLT_MAX
+# define PROJECTION_PLANE_DISTANCE 1
 
 #include <stdlib.h>
 #include "SDL.h"
@@ -135,7 +136,6 @@ typedef struct			s_camera_basis
 typedef struct			s_camera
 {
 	t_camera_basis		basis;
-	float				projection_plane_distance;
 }						t_camera;
 
 typedef struct			s_union

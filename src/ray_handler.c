@@ -99,7 +99,7 @@ t_equation_solve cone_ray_intersection(t_union *un, t_object *object, t_vec dire
 
 int is_root_valid(t_union *un, float root, float closest_root, t_object *closest_object)
 {
-    if (root < un->camera.projection_plane_distance)
+    if (root >= INF || root <= PROJECTION_PLANE_DISTANCE)
         return (FALSE);
     if (closest_object)
     {
@@ -127,12 +127,12 @@ t_color get_closest_object_color(t_union *un, t_vec viewport)
     {
         if (object->type == SPHERE)
             solve = sphere_ray_intersection(un, object, viewport, un->camera.basis.position);
-        else if (object->type == PLANE)
-            solve = plane_ray_intersection(un, object, viewport, un->camera.basis.position);
-        else if (object->type == CYLINDER)
-            solve = cylinder_ray_intersection(un, object, viewport, un->camera.basis.position);
+       else if (object->type == PLANE)
+         solve = plane_ray_intersection(un, object, viewport, un->camera.basis.position);
+       else if (object->type == CYLINDER)
+         solve = cylinder_ray_intersection(un, object, viewport, un->camera.basis.position);
         else if (object->type == CONE)
-            solve = cone_ray_intersection(un, object, viewport, un->camera.basis.position);
+        	solve = cone_ray_intersection(un, object, viewport, un->camera.basis.position);
         if (is_root_valid(un, solve.t1, closest_root, closest_object))
         {
             closest_object = object;
@@ -161,7 +161,7 @@ void ray_intersection(t_union *un)
         while (canvas.x < W_WIDTH / 2)
         {
             viewport = canvas_to_viewport(canvas);
-            viewport.z = un->camera.projection_plane_distance;
+            viewport.z = PROJECTION_PLANE_DISTANCE;
             color = get_closest_object_color(un, viewport);
             draw_on_canvas(un, color, canvas);
             ++canvas.x;

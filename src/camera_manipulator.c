@@ -12,13 +12,6 @@
 
 #include "rtv1.h"
 
-void update_projection_plane(t_union *un)
-{
-    if (un->camera.basis.position.z >= 0)
-            un->camera.projection_plane_distance = un->camera.basis.position.z + 1;
-    else
-        un->camera.projection_plane_distance = 1;
-}
 
 void move_camera(t_union *un, t_camera_move direction)
 {
@@ -33,7 +26,6 @@ void move_camera(t_union *un, t_camera_move direction)
         vec_set(camera_position, camera_position->x + look_at.x * CAMERA_MOVEMENT_STEP,
            camera_position->y + look_at.y * CAMERA_MOVEMENT_STEP,
            camera_position->z + look_at.z * CAMERA_MOVEMENT_STEP);
-        update_projection_plane(un);
     }
     else if (direction == BACK)
     {
@@ -41,7 +33,6 @@ void move_camera(t_union *un, t_camera_move direction)
         vec_set(camera_position, camera_position->x + look_at.x * CAMERA_MOVEMENT_STEP,
            camera_position->y + look_at.y * CAMERA_MOVEMENT_STEP,
            camera_position->z + look_at.z * CAMERA_MOVEMENT_STEP);
-        update_projection_plane(un);
     }
     else if (direction == LEFT)
     {

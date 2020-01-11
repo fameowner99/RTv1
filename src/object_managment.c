@@ -92,7 +92,7 @@ void				add_objects_to_scene(t_union *un)
     //light
     light.intensity = 0.3;
     light.type = AMBIENT;
-    un->lights = light_push_back(un->lights, &light);
+    //un->lights = light_push_back(un->lights, &light);
 
 
     light.intensity = 0.3;
@@ -102,6 +102,6 @@ void				add_objects_to_scene(t_union *un)
 
     light.intensity = 0.5;
     light.type = POINT;
-    vec_set(&light.position, -5, 5, 1);
+    vec_set(&light.position, 0, 1, -5);
     un->lights = light_push_back(un->lights, &light);
 }
