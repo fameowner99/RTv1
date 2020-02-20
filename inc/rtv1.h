@@ -26,13 +26,16 @@
 # define BACKGROUND_COLOR_G 0
 # define BACKGROUND_COLOR_B 0
 # define CAMERA_MOVEMENT_STEP 1
-# define INF FLT_MAX
+
 # define PROJECTION_PLANE_DISTANCE 1
 
 #include <stdlib.h>
 #include "SDL.h"
 #include "libft.h"
 #include "libvec.h"
+#include "float.h"
+
+# define INF FLT_MAX
 
 typedef enum			e_camera_move
 {
