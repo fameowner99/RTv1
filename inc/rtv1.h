@@ -182,6 +182,6 @@ t_equation_solve 	sphere_ray_intersection(t_union *un, t_object *object, t_vec d
 t_equation_solve 	plane_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
 t_equation_solve 	cylinder_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
 t_equation_solve	cone_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
-//void				change_objects_position(t_union *un); // for debug
+int                 parse_scene(int argc, char **argv, t_union *un);
 
 #endif
