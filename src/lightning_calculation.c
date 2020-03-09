@@ -102,9 +102,9 @@ t_color	    get_color_with_light(t_union *un, t_object *closest_object, float cl
         return g_background_color;
     point =  vec_add(un->camera.basis.position, vec_mul(vec_unit(viewport), closest_root));
     intensity = get_intensity(un, get_normal(closest_object, point, viewport, closest_root, un), point,
-    		vec_unit(vec_sub(un->camera.basis.position, viewport)), closest_object->specular);
-    result_color.r = (uint8_t)(closest_object->color.r * intensity);
-    result_color.g = (uint8_t)(closest_object->color.g * intensity);
-    result_color.b = (uint8_t)(closest_object->color.b * intensity);
+    		vec_unit(vec_sub(un->camera.basis.position, viewport)), closest_object->material.specular);
+    result_color.r = (uint8_t)(closest_object->material.color.r * intensity);
+    result_color.g = (uint8_t)(closest_object->material.color.g * intensity);
+    result_color.b = (uint8_t)(closest_object->material.color.b * intensity);
     return (result_color);
 }

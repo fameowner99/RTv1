@@ -4,9 +4,9 @@
 [submodule "libvec"]
 	path = libvec
 	url = https://github.com/fameowner99/libvec.git
-[submodule "3rdParty/json_lib"]
-	path = 3rdParty/json_lib
-	url = https://github.com/fameowner99/json-c.git
 [submodule "3rdParty/SDL_SRC_LIBRARY"]
 	path = 3rdParty/SDL_SRC_LIBRARY
 	url = https://github.com/fameowner99/SDL2_SRC
+[submodule "3rdParty/cJSON"]
+	path = 3rdParty/cJSON
+	url = https://github.com/fameowner99/cJSON

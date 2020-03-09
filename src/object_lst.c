@@ -20,9 +20,9 @@ static t_object       *create_node(void *data, t_object_type type, t_color color
 
     node = malloc(sizeof(t_object));
     node->type = type;
-    node->color.r = color.r;
-    node->color.g = color.g;
-    node->color.b = color.b;
+    node->material.color.r = color.r;
+    node->material.color.g = color.g;
+    node->material.color.b = color.b;
     node->data = data;
     node->next = NULL;
     return (node);

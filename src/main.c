@@ -33,12 +33,11 @@ int		main(int argc, char *argv[])
 	g_background_color.g = BACKGROUND_COLOR_G;
 	g_background_color.b = BACKGROUND_COLOR_B; 
 	set_initial_camera_data(&un);
-	if (parse_scene(argc, argv, &un) == FALSE)
+	if (parse_arguments(argc, argv, &un) == FALSE)
     {
-	    ft_printf(RED"Usage: %s scene1 scene2 ... sceneN\n"RESET, argv[0]);
+	    ft_printf(RED"Usage: %s scene1.rt scene2.rt ... sceneN.rt\n"RESET, argv[0]);
 	    return 1;
     }
-	add_objects_to_scene(&un);
 	rt(&un);
 	return (0);
 }

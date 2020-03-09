@@ -114,12 +114,17 @@ typedef struct			s_color
 	uint8_t				b;
 }						t_color;
 
+typedef struct			s_material
+{
+	t_color				color;
+	int					specular;
+}						t_material;
+
 typedef struct			s_object
 {
 	void				*data;
 	t_object_type		type;
-	t_color				color;
-	int					specular;
+	t_material			material;
 	struct s_object		*next;
 }						t_object;
 
@@ -182,6 +187,7 @@ t_equation_solve 	sphere_ray_intersection(t_union *un, t_object *object, t_vec d
 t_equation_solve 	plane_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
 t_equation_solve 	cylinder_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
 t_equation_solve	cone_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
-int                 parse_scene(int argc, char **argv, t_union *un);
+int                 parse_arguments(int argc, char **argv, t_union *un);
+int                 parse_scene(char *scene_path, t_union *un);
 
 #endif

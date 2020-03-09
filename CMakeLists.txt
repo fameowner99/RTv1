@@ -4,13 +4,17 @@ project(RTv1)
 
 include(CheckFunctionExists)
 
+if (APPLE)
+    set(CMAKE_MACOSX_RPATH ON)
+endif (APPLE)
 
 add_subdirectory (${CMAKE_SOURCE_DIR}/libvec)
 add_subdirectory (${CMAKE_SOURCE_DIR}/libft)
 add_subdirectory (${CMAKE_SOURCE_DIR}/3rdParty/SDL_SRC_LIBRARY)
-add_subdirectory (${CMAKE_SOURCE_DIR}/3rdParty/json_lib)
+add_subdirectory (${CMAKE_SOURCE_DIR}/3rdParty/cJSON)
 
-set(INC ${CMAKE_SOURCE_DIR}/inc ${CMAKE_SOURCE_DIR}/libft/inc ${CMAKE_SOURCE_DIR}/libvec/inc)
+set(INC ${CMAKE_SOURCE_DIR}/inc ${CMAKE_SOURCE_DIR}/libft/inc ${CMAKE_SOURCE_DIR}/libvec/inc
+        ${CMAKE_SOURCE_DIR}/3rdParty)
 
 add_executable(RTv1 ${CMAKE_SOURCE_DIR}/src/main.c
 ${CMAKE_SOURCE_DIR}/src/camera_manipulator.c
@@ -23,7 +27,8 @@ ${CMAKE_SOURCE_DIR}/src/object_managment.c
 ${CMAKE_SOURCE_DIR}/src/ray_handler.c
 ${CMAKE_SOURCE_DIR}/src/renderer.c
 ${CMAKE_SOURCE_DIR}/src/rt.c
-        ${CMAKE_SOURCE_DIR}/src/scene_parser.c)
+        ${CMAKE_SOURCE_DIR}/src/scene_parser.c
+        ${CMAKE_SOURCE_DIR}/src/load_object.c)
 
 target_link_libraries(RTv1 ft)
 target_link_libraries(RTv1 vec)
@@ -35,7 +40,8 @@ target_link_libraries(RTv1 SDL2::SDL2)
 
 
 ## json
-target_link_libraries(RTv1 json-c)
+target_link_libraries(RTv1 cjson)
+
 
 target_include_directories(RTv1 PRIVATE ${INC})
 

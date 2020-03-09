@@ -3,7 +3,7 @@
 void				add_objects_to_scene(t_union *un)
 {
 
-    t_sphere sphere;
+/*    t_sphere sphere;
     t_plane  plane;
     t_cylinder cylinder;
     t_cone      cone;
@@ -120,5 +120,5 @@ void				add_objects_to_scene(t_union *un)
     light.intensity = 0.5;
     light.type = POINT;
     vec_set(&light.position, 10, 0, 5);
-    un->lights = light_push_back(un->lights, &light);
+    un->lights = light_push_back(un->lights, &light);*/
 }
