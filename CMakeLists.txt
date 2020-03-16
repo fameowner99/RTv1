@@ -23,7 +23,6 @@ ${CMAKE_SOURCE_DIR}/src/light_lst.c
 ${CMAKE_SOURCE_DIR}/src/lightning_calculation.c
 ${CMAKE_SOURCE_DIR}/src/normal_calculation.c
 ${CMAKE_SOURCE_DIR}/src/object_lst.c
-${CMAKE_SOURCE_DIR}/src/object_managment.c
 ${CMAKE_SOURCE_DIR}/src/ray_handler.c
 ${CMAKE_SOURCE_DIR}/src/renderer.c
 ${CMAKE_SOURCE_DIR}/src/rt.c
