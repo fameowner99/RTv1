@@ -1,23 +1,22 @@
 #include "parser.h"
+#include "parser_defines.h"
 
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
-int                 parse_arguments(int argc, char **argv, t_union *un)
+unsigned                parse_arguments(int argc, char **argv, t_union *un)
 {
 	int i = 1;
-	int result;
-
-	result = FALSE;
 
 	while (i < argc)
 	{
-		result |= parse_scene(argv[i], un);
+		if (!parse_scene(argv[i], un))
+		    return (FALSE);
 		++i;
 	}
 
-    return (result);
+    return (TRUE);
 }
 
 int					check_extension(char *scene_path)
@@ -58,9 +57,11 @@ char				*read_json_file(char *scene_path)
 }
 
 
-int                 parse_scene(char *scene_path, t_union *un)
+unsigned                parse_scene(char *scene_path, t_union *un)
 {
 	char *json_str;
+	unsigned result;
+    cJSON *object;
 
 	if (!check_extension(scene_path))
 		return (FALSE);
@@ -71,18 +72,21 @@ int                 parse_scene(char *scene_path, t_union *un)
 		return FALSE;
 
 	cJSON *root = cJSON_Parse(json_str);
+    result = TRUE;
 
-	cJSON *spheres = cJSON_GetObjectItem(root, "spheres");
-	//cJSON *cones = cJSON_GetObjectItem(root, "cones");
-	//cJSON *cylinders = cJSON_GetObjectItem(root, "cylinders");
-	//cJSON *planes = cJSON_GetObjectItem(root, "planes");
-	//cJSON *meshes = cJSON_GetObjectItem(root, "meshes");
-	//cJSON *point_lights = cJSON_GetObjectItem(root, "point_lights");
-
-	load_spheres(spheres, un);
-
+	load_scene_data(root, un);
+	object = cJSON_GetObjectItem(root, SPHERES_ARR);
+    result &= load_object_array(object, un, load_sphere);
+	object = cJSON_GetObjectItem(root, CONES_ARR);
+    result &= load_object_array(object, un, load_cone);
+    object = cJSON_GetObjectItem(root, CYLINDERS_ARR);
+    result &= load_object_array(object, un, load_cylinder);
+	object = cJSON_GetObjectItem(root, PLANES_ARR);
+	result &= load_object_array(object, un, load_plane);
+	object = cJSON_GetObjectItem(root, POINT_LIGHTS_ARR);
+    result &= load_object_array(object, un, load_point_light);
+    //object = cJSON_GetObjectItem(root, "meshes");
 
 	cJSON_Delete(root);
-
-	return (TRUE);
+	return (result);
 }

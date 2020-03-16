@@ -57,7 +57,7 @@ t_object       *create_cylinder_node(t_cylinder *a_data, t_object_type type, t_c
     vec_set_v(&data->axis, vec_unit(a_data->axis));
     vec_set_v(&data->cap, a_data->cap);
     data->max = a_data->max;
-    data->r = a_data->r;
+    data->radius = a_data->radius;
 
     return (create_node(data, type, color));
 }

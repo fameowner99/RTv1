@@ -28,7 +28,10 @@ ${CMAKE_SOURCE_DIR}/src/ray_handler.c
 ${CMAKE_SOURCE_DIR}/src/renderer.c
 ${CMAKE_SOURCE_DIR}/src/rt.c
         ${CMAKE_SOURCE_DIR}/src/scene_parser.c
-        ${CMAKE_SOURCE_DIR}/src/load_object.c)
+        ${CMAKE_SOURCE_DIR}/src/load_object.c
+        ${CMAKE_SOURCE_DIR}/src/json_validation.c
+        ${CMAKE_SOURCE_DIR}/src/json_validation_scene_data.c
+        ${CMAKE_SOURCE_DIR}/src/load_scene_data.c)
 
 target_link_libraries(RTv1 ft)
 target_link_libraries(RTv1 vec)

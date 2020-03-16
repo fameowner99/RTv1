@@ -5,6 +5,19 @@
 #include "cJSON/cJSON.h"
 #include "rtv1.h"
 
-void load_spheres(cJSON *spheres, t_union *un);
+unsigned load_sphere(cJSON *objects, int object_index, t_union *un);
+unsigned load_cone(cJSON *objects, int object_index, t_union *un);
+unsigned load_cylinder(cJSON *objects, int object_index, t_union *un);
+unsigned load_plane(cJSON *objects, int object_index, t_union *un);
+unsigned load_point_light(cJSON *objects, int object_index, t_union *un);
+unsigned validate_json_sphere(cJSON *object);
+unsigned validate_json_cone(cJSON *object);
+unsigned validate_json_cylinder(cJSON *object);
+unsigned validate_json_plane(cJSON *object);
+unsigned validate_scene_data(const cJSON *root);
+unsigned validate_json_point_light(cJSON *object);
+int check_json_length(cJSON *object, int expected_length);
+void load_scene_data(cJSON *root, t_union *un);
+unsigned load_object_array(cJSON *objects, t_union *un, unsigned (*loader)(cJSON*, int, t_union*));
 
 #endif

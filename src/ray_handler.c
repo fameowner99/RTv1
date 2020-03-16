@@ -76,7 +76,7 @@ t_equation_solve cylinder_ray_intersection(t_union *un, t_object *object, t_vec 
     k1 = vec_dot_product(direction, direction) - vec_dot_product(direction, data->axis) * vec_dot_product(direction, data->axis);
     k2 = 2 * (vec_dot_product(vec_sub(start_point, center_pos), direction) - vec_dot_product(direction, data->axis) * vec_dot_product(vec_sub(start_point, center_pos), data->axis));
     k3 = vec_dot_product(vec_sub(start_point, center_pos), vec_sub(start_point, center_pos)) -
-        vec_dot_product(vec_sub(start_point, center_pos), data->axis) * vec_dot_product(vec_sub(start_point, center_pos), data->axis) - data->r * data->r;
+        vec_dot_product(vec_sub(start_point, center_pos), data->axis) * vec_dot_product(vec_sub(start_point, center_pos), data->axis) - data->radius * data->radius;
     return (solve_equation(un, k1, k2, k3));
 }
 

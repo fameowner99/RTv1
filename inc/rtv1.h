@@ -92,7 +92,7 @@ typedef struct			s_sphere
 
 typedef struct 			s_cylinder
 {
-	float				r;
+	float				radius;
 	t_vec				cap;
 	t_vec 				axis;
 	float				max;		
@@ -187,7 +187,7 @@ t_equation_solve 	sphere_ray_intersection(t_union *un, t_object *object, t_vec d
 t_equation_solve 	plane_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
 t_equation_solve 	cylinder_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
 t_equation_solve	cone_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
-int                 parse_arguments(int argc, char **argv, t_union *un);
-int                 parse_scene(char *scene_path, t_union *un);
+unsigned            parse_arguments(int argc, char **argv, t_union *un);
+unsigned            parse_scene(char *scene_path, t_union *un);
 
 #endif

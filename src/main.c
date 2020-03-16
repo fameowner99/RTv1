@@ -12,11 +12,16 @@
 
 #include "rtv1.h"
 
-void	set_initial_camera_data(t_union *un)
+void	initialize(t_union *un)
 {
-	vec_set(&un->camera.basis.position, 0, 0, 0);
+    un->objects = NULL;
+    un->lights = NULL;
+    vec_set(&un->camera.basis.position, 0, 0, 0);
 	vec_set(&un->camera.basis.up, 0, 1, 0);
 	vec_set(&un->camera.basis.look_at, 0, 0 , 1);
+    g_background_color.r = BACKGROUND_COLOR_R;
+    g_background_color.g = BACKGROUND_COLOR_G;
+    g_background_color.b = BACKGROUND_COLOR_B;
 }
 
 #if (_MSC_VER)
@@ -27,15 +32,16 @@ int		main(int argc, char *argv[])
 {
 	t_union un;
 
-	un.objects = NULL;
-	un.lights = NULL;
-	g_background_color.r = BACKGROUND_COLOR_R;
-	g_background_color.g = BACKGROUND_COLOR_G;
-	g_background_color.b = BACKGROUND_COLOR_B; 
-	set_initial_camera_data(&un);
+	initialize(&un);
+	if (argc != 2)
+	{
+        ft_printf(RED"Usage: %s scene.rt\n\n"RESET, argv[0]);
+        return 1;
+    }
 	if (parse_arguments(argc, argv, &un) == FALSE)
     {
-	    ft_printf(RED"Usage: %s scene1.rt scene2.rt ... sceneN.rt\n"RESET, argv[0]);
+        ft_printf(BLUE"%s contains error(s).\n\n"RESET, argv[1]);
+	    ft_printf(GREEN"Some hints:\n1) Scene must contain .rt extension\n2) Check json format in any online json validator\n"RESET);
 	    return 1;
     }
 	rt(&un);
