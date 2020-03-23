@@ -45,7 +45,8 @@ char				*read_json_file(char *scene_path)
 	char *json_str;
 
 	json_str = NULL;
-	fd = open(scene_path, O_RDONLY);
+	if ((fd = open(scene_path, O_RDONLY)) < 0)
+	    return (NULL);
 
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -72,6 +73,8 @@ unsigned                parse_scene(char *scene_path, t_union *un)
 		return FALSE;
 
 	cJSON *root = cJSON_Parse(json_str);
+	if (!root)
+	    return (FALSE);
     result = TRUE;
 
 	load_scene_data(root, un);
