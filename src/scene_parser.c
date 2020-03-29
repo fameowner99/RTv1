@@ -53,7 +53,6 @@ char				*read_json_file(char *scene_path)
 		json_str = ft_append(json_str, line);
 		free(line);
 	}
-	free(line);
 	close(fd);
 	return (json_str);
 }
