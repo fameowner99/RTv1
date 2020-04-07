@@ -10,3 +10,6 @@
 [submodule "3rdParty/cJSON"]
 	path = 3rdParty/cJSON
 	url = https://github.com/fameowner99/cJSON
+[submodule "libmatrix"]
+	path = libmatrix
+	url = https://github.com/fameowner99/libmatrix.git
