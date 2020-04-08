@@ -27,6 +27,7 @@ void	initialize(t_union *un)
 #if (_MSC_VER)
 # undef main
 #endif
+#include "libmatrix.h"
 
 int		main(int argc, char *argv[])
 {
