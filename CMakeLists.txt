@@ -9,12 +9,16 @@ if (APPLE)
 endif (APPLE)
 
 add_subdirectory (${CMAKE_SOURCE_DIR}/libvec)
+add_subdirectory (${CMAKE_SOURCE_DIR}/libmatrix)
 add_subdirectory (${CMAKE_SOURCE_DIR}/libft)
 add_subdirectory (${CMAKE_SOURCE_DIR}/3rdParty/SDL_SRC_LIBRARY)
 add_subdirectory (${CMAKE_SOURCE_DIR}/3rdParty/cJSON)
 
-set(INC ${CMAKE_SOURCE_DIR}/inc ${CMAKE_SOURCE_DIR}/libft/inc ${CMAKE_SOURCE_DIR}/libvec/inc
-        ${CMAKE_SOURCE_DIR}/3rdParty)
+set(INC ${CMAKE_SOURCE_DIR}/inc
+    ${CMAKE_SOURCE_DIR}/libft/inc
+    ${CMAKE_SOURCE_DIR}/libvec/inc
+    ${CMAKE_SOURCE_DIR}/libmatrix/inc
+    ${CMAKE_SOURCE_DIR}/3rdParty)
 
 add_executable(RTv1 ${CMAKE_SOURCE_DIR}/src/main.c
 ${CMAKE_SOURCE_DIR}/src/camera_manipulator.c
@@ -34,6 +38,7 @@ ${CMAKE_SOURCE_DIR}/src/rt.c
 
 target_link_libraries(RTv1 ft)
 target_link_libraries(RTv1 vec)
+target_link_libraries(RTv1 matrix)
 
 ## SDL2
 
