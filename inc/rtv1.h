@@ -33,6 +33,7 @@
 #include "SDL.h"
 #include "libft.h"
 #include "libvec.h"
+#include "libmatrix.h"
 #include "float.h"
 
 # define INF FLT_MAX
@@ -46,15 +47,6 @@ typedef enum			e_camera_move
 	FORWARD,
 	BACK
 }						t_camera_move;
-
-
-typedef enum			e_camera_rotate
-{
-	Y_BACK = 0,
-	Y_FORWARD,
-	X_LEFT,
-	X_RIGHT
-}						t_camera_rotate;
 
 typedef enum			e_object_type
 {
@@ -145,7 +137,15 @@ typedef struct			s_camera_basis
 typedef struct			s_camera
 {
 	t_camera_basis		basis;
+	t_matrix            matrix;
 }						t_camera;
+
+typedef struct          s_mouse
+{
+    int                 is_clicked;
+    int                 clicked_x;
+    int                 clicked_y;
+}                       t_mouse;
 
 typedef struct			s_union
 {
@@ -153,6 +153,7 @@ typedef struct			s_union
 	t_light				*lights;
 	t_sdl_data			sdl;
 	t_camera			camera;
+	t_mouse             mouse;
 }						t_union;
 
 typedef struct			s_equation_solve
@@ -163,7 +164,6 @@ typedef struct			s_equation_solve
 
 t_color					g_background_color;
 
-void				add_objects_to_scene(t_union *un);
 t_object      	 	*create_sphere_node(t_sphere *a_data, t_object_type type, t_color color);
 t_object       		*create_plane_node(t_plane *a_data, t_object_type type, t_color color);
 t_object       		*create_cylinder_node(t_cylinder *a_data, t_object_type type, t_color color);
@@ -177,7 +177,8 @@ void				draw_on_canvas(t_union *un, t_color color, t_vec canvas);
 t_equation_solve	solve_equation(t_union *un, float k1, float k2, float k3);
 int					handle_events(t_union *un);
 void				move_camera(t_union *un, t_camera_move direction);
-void 				rotate_camera(t_union *un, t_camera_rotate direction);
+void 				rotate_camera(t_union *un);
+t_matrix            get_rotate_matrix(float angle_x, float angle_y);
 t_color				get_color_with_light(t_union *un, t_object *closest_object, float closest_root, t_vec viewport);
 t_vec				get_normal_sphere(t_object *object, t_vec point);
 t_vec				get_normal_plane(t_object *object, t_vec point);
@@ -189,5 +190,8 @@ t_equation_solve 	cylinder_ray_intersection(t_union *un, t_object *object, t_vec
 t_equation_solve	cone_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
 unsigned            parse_arguments(int argc, char **argv, t_union *un);
 unsigned            parse_scene(char *scene_path, t_union *un);
+t_vec               apply_rotate_matrix(t_vec vec, t_matrix *matrix);
+void                rotate_camera(t_union *un);
+void                update_camera_vectors(t_union *un);
 
 #endif

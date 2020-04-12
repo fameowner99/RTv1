@@ -22,12 +22,18 @@ void	initialize(t_union *un)
     g_background_color.r = BACKGROUND_COLOR_R;
     g_background_color.g = BACKGROUND_COLOR_G;
     g_background_color.b = BACKGROUND_COLOR_B;
+    un->mouse.is_clicked = FALSE;
+    un->mouse.clicked_x = 0;
+    un->mouse.clicked_y = 0;
+    un->camera.matrix = matrix_allocate(3, 3);
+    un->camera.matrix.data[0][0] = 1;
+    un->camera.matrix.data[1][1] = 1;
+    un->camera.matrix.data[2][2] = 1;
 }
 
 #if (_MSC_VER)
 # undef main
 #endif
-#include "libmatrix.h"
 
 int		main(int argc, char *argv[])
 {

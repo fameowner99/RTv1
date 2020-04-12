@@ -36,51 +36,25 @@ void move_camera(t_union *un, t_camera_move direction)
     }
     else if (direction == LEFT)
     {
-         vec_set(camera_position, camera_position->x - CAMERA_MOVEMENT_STEP,
-           camera_position->y, camera_position->z); //temporary solution
+        t_vec vec_cross = vec_cross_product(un->camera.basis.look_at, un->camera.basis.up);
+         vec_set(camera_position, camera_position->x + vec_cross.x * CAMERA_MOVEMENT_STEP,
+           camera_position->y + vec_cross.y * CAMERA_MOVEMENT_STEP,
+           camera_position->z + vec_cross.z * CAMERA_MOVEMENT_STEP);
     }
     else if (direction == RIGHT)
     {
-        vec_set(camera_position, camera_position->x + CAMERA_MOVEMENT_STEP,
-           camera_position->y, camera_position->z); //temporary solution
+        t_vec vec_cross = vec_cross_product(un->camera.basis.up, un->camera.basis.look_at);
+        vec_set(camera_position, camera_position->x + vec_cross.x * CAMERA_MOVEMENT_STEP,
+                camera_position->y + vec_cross.y * CAMERA_MOVEMENT_STEP,
+                camera_position->z + vec_cross.z * CAMERA_MOVEMENT_STEP);
     }
 
     draw(un);
 }
 
-void update_look_at(t_union *un)
+
+void                update_camera_vectors(t_union *un)
 {
-
-}
-
-void rotate_camera(t_union *un, t_camera_rotate direction)
-{
-    const float angle = 50;
-
-    if (direction == Y_FORWARD)
-    {
-        /*float tmp = un->camera.basis.position.x;
-        un->camera.basis.position.x = un->camera.basis.position.x * cos(angle) + un->camera.basis.position.z * sin(angle);
-        un->camera.basis.position.z = - tmp * sin(angle) + un->camera.basis.position.z * cos(angle);*/
-        //float tmp = un->camera.basis.position.x;
-       // un->camera.basis.position.x = un->camera.basis.position.y * cos(angle) - un->camera.basis.position.z * sin(angle);
-       // un->camera.basis.position.y = un->camera.basis.position.y * sin(angle) + un->camera.basis.position.z * cos(angle);
-    }
-    else if (direction == Y_BACK)
-    {
-
-    }
-    else if (direction == X_LEFT)
-    {
-
-    }
-    else if (direction == X_RIGHT)
-    {
-        
-    }
-
-   
-    update_look_at(un);
-
-   //draw(un);
+    un->camera.basis.look_at = apply_rotate_matrix(un->camera.basis.look_at, &un->camera.matrix);
+    un->camera.basis.up = apply_rotate_matrix(un->camera.basis.up, &un->camera.matrix);
 }

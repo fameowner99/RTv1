@@ -42,7 +42,7 @@
 "specular": 10
 }
 ],
-"//cones": [
+"cones": [
 {
 "vertex_x": -4,
 "vertex_y": 5,
@@ -59,7 +59,7 @@
 "specular": 50
 }
 ],
-"//cylinders": [
+"cylinders": [
 {
 "vertex_x": 4,
 "vertex_y": 5,
@@ -75,7 +75,7 @@
 "specular": 50
 }
 ],
-"//planes": [
+"planes": [
 {
 "center_x": 0,
 "center_y": -1,

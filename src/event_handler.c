@@ -23,7 +23,7 @@ int handle_events(t_union *un)
 	    {
             if (un->sdl.event.key.keysym.sym == SDLK_ESCAPE)
                 return (FALSE);
-            else if (un->sdl.event.key.keysym.sym == SDLK_DOWN)
+            else if (un->sdl.event.key.keysym.sym== SDLK_DOWN)
                 move_camera(un, BACK);
             else if (un->sdl.event.key.keysym.sym == SDLK_UP)
                 move_camera(un, FORWARD);
@@ -31,14 +31,25 @@ int handle_events(t_union *un)
                 move_camera(un, LEFT);
             else if (un->sdl.event.key.keysym.sym == SDLK_RIGHT)
                 move_camera(un, RIGHT);
-            else if (un->sdl.event.key.keysym.sym == SDLK_w)
-                rotate_camera(un, Y_FORWARD);
-            else if (un->sdl.event.key.keysym.sym == SDLK_s)
-                rotate_camera(un, Y_BACK);
-            else if (un->sdl.event.key.keysym.sym == SDLK_a)
-                rotate_camera(un, X_LEFT);
-            else if (un->sdl.event.key.keysym.sym == SDLK_d)
-                rotate_camera(un, X_RIGHT);
+        }
+        else if (un->sdl.event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            if (un->sdl.event.button.button == SDL_BUTTON_RIGHT)
+            {
+                un->mouse.is_clicked = TRUE;
+                SDL_GetMouseState(&un->mouse.clicked_x, &un->mouse.clicked_y);
+            }
+        }
+        else if (un->sdl.event.type == SDL_MOUSEBUTTONUP)
+        {
+            if (un->sdl.event.button.button == SDL_BUTTON_RIGHT)
+            {
+                un->mouse.is_clicked = FALSE;
+                rotate_camera(un);
+            }
+        }
+        else if (un->sdl.event.type == SDL_MOUSEMOTION)
+        {
         }
     }
 

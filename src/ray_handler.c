@@ -162,11 +162,7 @@ void ray_intersection(t_union *un)
         {
             viewport = canvas_to_viewport(canvas);
             viewport.z = PROJECTION_PLANE_DISTANCE;
-            const float alpha = 180. * M_PI / 180.;
-            const float tmp = viewport.x;
-            viewport.x = viewport.x * cos(alpha) + viewport.z * sin(alpha);
-            viewport.z = -tmp * sin(alpha) + viewport.z * cos(alpha);
-            color = get_closest_object_color(un, viewport);
+            color = get_closest_object_color(un, apply_rotate_matrix(viewport, &un->camera.matrix));
             draw_on_canvas(un, color, canvas);
             ++canvas.x;
         }
