@@ -35,7 +35,11 @@
 #include "libvec.h"
 #include "libmatrix.h"
 #include "float.h"
-
+#ifdef __APPLE__
+#include <OpenCL/opencl.h>
+#else
+#include <CL/cl.h>
+#endif
 # define INF FLT_MAX
 
 typedef enum			e_camera_move
