@@ -149,4 +149,5 @@ unsigned load_point_light(cJSON *objects, int object_index, t_union *un)
             (float)cJSON_GetObjectItem(light, CENTER_Z)->valuedouble);
     light_data.intensity = (float)cJSON_GetObjectItem(light, INTENSITY)->valuedouble;
     un->lights = light_push_back(un->lights, &light_data);
+    return (TRUE);
 }
