@@ -39,7 +39,8 @@ ${CMAKE_SOURCE_DIR}/src/rt.c
         ${CMAKE_SOURCE_DIR}/src/json_validation_scene_data.c
         ${CMAKE_SOURCE_DIR}/src/load_scene_data.c
         ${CMAKE_SOURCE_DIR}/src/matrix_adapter.c
-        ${CMAKE_SOURCE_DIR}/src/rotate_utilities.c)
+        ${CMAKE_SOURCE_DIR}/src/rotate_utilities.c
+        ${CMAKE_SOURCE_DIR}/src/parse_utilities.c)
 
 target_link_libraries(RTv1 ft)
 target_link_libraries(RTv1 vec)

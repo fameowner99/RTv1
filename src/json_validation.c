@@ -78,3 +78,8 @@ unsigned validate_json_point_light(cJSON *object)
             && cJSON_GetObjectItem(object, CENTER_Z) != NULL
             && cJSON_GetObjectItem(object, INTENSITY) != NULL);
 }
+
+unsigned validate_json_polygon(cJSON *object)
+{
+    return (cJSON_GetObjectItem(object, FILEPATH) != NULL);
+}

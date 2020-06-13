@@ -10,6 +10,7 @@
 #define CYLINDERS_ARR "cylinders"
 #define PLANES_ARR "planes"
 #define POINT_LIGHTS_ARR "point_lights"
+#define POLYGONS "polygons"
 
 #define RADIUS "radius"
 #define CENTER_X "center_x"
@@ -32,6 +33,7 @@
 #define MIN "min"
 #define MAX "max"
 #define INTENSITY "intensity"
+#define FILEPATH "filepath"
 
 
 #define SPHERE_JSON_SIZE 8

@@ -12,11 +12,12 @@
 
 #include "rtv1.h"
 
+#include "parser.h"
 void	initialize(t_union *un)
 {
     un->objects = NULL;
     un->lights = NULL;
-    vec_set(&un->camera.basis.position, 0, 0, 0);
+    vec_set(&un->camera.basis.position, 5, 0, -10);
 	vec_set(&un->camera.basis.up, 0, 1, 0);
 	vec_set(&un->camera.basis.look_at, 0, 0 , 1);
     g_background_color.r = BACKGROUND_COLOR_R;
@@ -34,6 +35,7 @@ void	initialize(t_union *un)
 #if (_MSC_VER)
 # undef main
 #endif
+
 
 int		main(int argc, char *argv[])
 {
