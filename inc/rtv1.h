@@ -38,7 +38,7 @@
 #ifdef __APPLE__
 #include <OpenCL/opencl.h>
 #else
-#include <CL/cl.h>
+//#include <CL/cl.h>
 #endif
 # define INF FLT_MAX
 
@@ -57,7 +57,8 @@ typedef enum			e_object_type
 	PLANE = 0,
 	SPHERE,
 	CYLINDER,
-	CONE
+	CONE,
+	POLYGON
 }						t_object_type;
 
 typedef enum			e_light_type
@@ -116,6 +117,15 @@ typedef struct			s_material
 	int					specular;
 }						t_material;
 
+typedef  struct         s_polygon
+{
+    float *vertices;
+    int vertices_size;
+    t_vec               min; //aabb
+    t_vec               max; //aabb
+	t_vec				intersected_triangle_normal;
+}                       t_polygon;
+
 typedef struct			s_object
 {
 	void				*data;
@@ -172,13 +182,14 @@ t_object      	 	*create_sphere_node(t_sphere *a_data, t_object_type type, t_col
 t_object       		*create_plane_node(t_plane *a_data, t_object_type type, t_color color);
 t_object       		*create_cylinder_node(t_cylinder *a_data, t_object_type type, t_color color);
 t_object        	*create_cone_node(t_cone *a_data, t_object_type type, t_color color);
+t_object            *create_polygon_node(t_polygon *a_data, t_object_type type, t_color color);
 t_object	        *object_push_back(t_object *head, t_object *node);
 t_light				*light_push_back(t_light *head, t_light *a_light);
 void				rt(t_union *rt);
 void				ray_intersection(t_union *un);
 void				draw(t_union *un);
 void				draw_on_canvas(t_union *un, t_color color, t_vec canvas);
-t_equation_solve	solve_equation(t_union *un, float k1, float k2, float k3);
+t_equation_solve	solve_equation(float k1, float k2, float k3);
 int					handle_events(t_union *un);
 void				move_camera(t_union *un, t_camera_move direction);
 void 				rotate_camera(t_union *un);
@@ -188,10 +199,12 @@ t_vec				get_normal_sphere(t_object *object, t_vec point);
 t_vec				get_normal_plane(t_object *object, t_vec point);
 t_vec				get_normal_cylinder(t_object *object, t_vec point, t_vec viewport, float closest_root, t_union *un);
 t_vec				get_normal_cone(t_object *object, t_vec point, t_vec viewport, float closest_root, t_union *un);
-t_equation_solve 	sphere_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
-t_equation_solve 	plane_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
-t_equation_solve 	cylinder_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
-t_equation_solve	cone_ray_intersection(t_union *un, t_object *object, t_vec direction, t_vec start_point);
+t_equation_solve 	sphere_ray_intersection(t_object *object, t_vec direction, t_vec start_point);
+t_equation_solve 	plane_ray_intersection(t_object *object, t_vec direction, t_vec start_point);
+t_equation_solve 	cylinder_ray_intersection(t_object *object, t_vec direction, t_vec start_point);
+t_equation_solve	cone_ray_intersection(t_object *object, t_vec direction, t_vec start_point);
+t_equation_solve 	polygon_ray_intersection(t_object *object, t_vec direction, t_vec start_point);
+t_equation_solve 	triangle_ray_intersection(t_vec v0, t_vec v1, t_vec v2, t_vec direction, t_vec start_point);
 unsigned            parse_arguments(int argc, char **argv, t_union *un);
 unsigned            parse_scene(char *scene_path, t_union *un);
 t_vec               apply_rotate_matrix(t_vec vec, t_matrix *matrix);

@@ -1,10 +1,6 @@
 #include "parser.h"
 #include "parser_defines.h"
 
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-
 unsigned                parse_arguments(int argc, char **argv, t_union *un)
 {
 	int i = 1;
@@ -38,36 +34,17 @@ int					check_extension(char *scene_path)
 	return (!ft_strcmp(scene_path + i, ".rt"));
 }
 
-char				*read_json_file(char *scene_path)
-{
-	int fd;
-	char *line;
-	char *json_str;
-
-	json_str = NULL;
-	if ((fd = open(scene_path, O_RDONLY)) < 0)
-	    return (NULL);
-
-	while (get_next_line(fd, &line) > 0)
-	{
-		json_str = ft_append(json_str, line);
-		free(line);
-	}
-	close(fd);
-	return (json_str);
-}
-
-
 unsigned                parse_scene(char *scene_path, t_union *un)
 {
 	char *json_str;
 	unsigned result;
     cJSON *object;
+    size_t length;
 
 	if (!check_extension(scene_path))
 		return (FALSE);
 
-	json_str = read_json_file(scene_path);
+	json_str = read_file(scene_path, &length);
 
 	if (!json_str)
 		return FALSE;
@@ -88,8 +65,8 @@ unsigned                parse_scene(char *scene_path, t_union *un)
 	result &= load_object_array(object, un, load_plane);
 	object = cJSON_GetObjectItem(root, POINT_LIGHTS_ARR);
     result &= load_object_array(object, un, load_point_light);
-    //object = cJSON_GetObjectItem(root, "meshes");
-
+    object = cJSON_GetObjectItem(root, POLYGONS);
+    result &= load_object_array(object, un, load_polygon);
     free(json_str);
 	cJSON_Delete(root);
 	return (result);

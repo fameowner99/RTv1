@@ -1,5 +1,10 @@
 {
 "ambient_light": 0.2,
+"polygons": [
+{
+"filepath": "C:\\PROJECTS\\RTv1\\obj_files\\crate.obj"
+}
+],
 "spheres": [
 {
 "radius": 1,
@@ -10,95 +15,23 @@
 "color_g": 0,
 "color_b": 0,
 "specular": 10
-},
-{
-"radius": 1,
-"center_x": 0,
-"center_y": 0,
-"center_z": -5,
-"color_r": 0,
-"color_g": 255,
-"color_b": 0,
-"specular": 10
-},
-{
-"radius": 1,
-"center_x": 5,
-"center_y": 0,
-"center_z": 0,
-"color_r": 0,
-"color_g": 0,
-"color_b": 255,
-"specular": 10
-},
-{
-"radius": 1,
-"center_x": -5,
-"center_y": 0,
-"center_z": 0,
-"color_r": 10,
-"color_g": 255,
-"color_b": 255,
-"specular": 10
-}
-],
-"cones": [
-{
-"vertex_x": -4,
-"vertex_y": 5,
-"vertex_z": 10,
-"axis_x": 0,
-"axis_y": -1,
-"axis_z": 0,
-"angle": 45,
-"min": 0,
-"max": 5,
-"color_r": 100,
-"color_g": 100,
-"color_b": 100,
-"specular": 50
-}
-],
-"cylinders": [
-{
-"vertex_x": 4,
-"vertex_y": 5,
-"vertex_z": 15,
-"axis_x": 0,
-"axis_y": -1,
-"axis_z": 0,
-"max": 5,
-"radius": 2,
-"color_r": 255,
-"color_g": 100,
-"color_b": 100,
-"specular": 50
-}
-],
-"planes": [
-{
-"center_x": 0,
-"center_y": -1,
-"center_z": 0,
-"normal_x": 0,
-"normal_y": 1,
-"normal_z": 0,
-"color_r": 0,
-"color_g": 100,
-"color_b": 255,
-"specular": 50
-}
-],
+}],
 "point_lights":[
 {
 "center_x": 3,
 "center_y": 10,
-"center_z": 5,
+"center_z": 0,
 "intensity": 0.2
 },
 {
 "center_x": 0,
-"center_y": 5,
+"center_y": 200,
+"center_z": -200,
+"intensity": 0.2
+},
+{
+"center_x": 0,
+"center_y": 0,
 "center_z": -5,
 "intensity": 0.2
 }

@@ -27,19 +27,18 @@ int			is_lit(t_union *un, t_vec point, t_vec light_position)
 	while (object)
 	{
 		if (object->type == SPHERE)
-			solve = sphere_ray_intersection(un, object, direction, point);
+			solve = sphere_ray_intersection(object, direction, point);
 		else if (object->type == PLANE)
-			solve = plane_ray_intersection(un, object, direction, point);
+			solve = plane_ray_intersection(object, direction, point);
 		else if (object->type == CYLINDER)
-			solve = cylinder_ray_intersection(un, object, direction, point);
+			solve = cylinder_ray_intersection(object, direction, point);
 		else if (object->type == CONE)
-			solve = cone_ray_intersection(un, object, direction, point);
+			solve = cone_ray_intersection(object, direction, point);
 
 		if ((solve.t1 >= 0.001f && solve.t1 <= 1)
 			|| (solve.t2 >= 0.001f && solve.t2 <= 1))
 			return (FALSE);
-		object = object->next;
-	}
+		object = object->next;}
 	return (TRUE);
 }
 
@@ -88,6 +87,8 @@ t_vec      get_normal(t_object *object, t_vec point, t_vec viewport, float close
         return (get_normal_cylinder(object, point, viewport, closest_root, un));
     else if (object->type == CONE)
         return (get_normal_cone(object, point, viewport, closest_root, un));
+    else if (object->type == POLYGON)
+        return (((t_polygon*)object)->intersected_triangle_normal);
     ft_printf(RED"Unknown object\n"RESET);
     exit(666);       
 }

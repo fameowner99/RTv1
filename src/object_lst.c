@@ -75,6 +75,18 @@ t_object        *create_cone_node(t_cone *a_data, t_object_type type, t_color co
     return (create_node(data, type, color));
 }
 
+t_object        *create_polygon_node(t_polygon *a_data, t_object_type type, t_color color)
+{
+    t_polygon      *data;
+
+    data = malloc(sizeof(t_polygon));
+    vec_set_v(&data->max, a_data->max);
+    vec_set_v(&data->min, a_data->min);
+    data->vertices_size = a_data->vertices_size;
+    data->vertices = a_data->vertices;
+    return (create_node(data, type, color));
+}
+
 t_object      *object_push_back(t_object *head, t_object *node)
 {
     t_object    *current_node;
